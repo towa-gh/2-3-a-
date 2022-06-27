@@ -1,0 +1,18 @@
+#pragma once
+
+#define HEIGHT 10
+#define WIDTH 16
+
+
+enum GAME_STATE {
+	GAME_TITLE = 0,
+	GAME_INIT,
+	GAME_RANKING,
+	GAME_END,
+	GAME_MAIN,
+	DRAW_GAME_OVER,
+	DRAW_GAME_CLEAR,
+	INPUT_RANKING,
+
+	EXIT=99
+};
