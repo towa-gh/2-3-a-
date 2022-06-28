@@ -115,7 +115,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 {
 
 	// タイトルを Drive&Avoid に変更
-	SetMainWindowText("Drive&Avoid");
+	SetMainWindowText("Apple Game");
 
 	ChangeWindowMode(TRUE);		// ウィンドウモードで起動
 
