@@ -1,4 +1,5 @@
 #include<stdio.h>
 int main() {
-	printf("���͂悤�I");
+	printf("halloworld");
+	printf("‚¨‚Í‚æ‚¤I");
 }
