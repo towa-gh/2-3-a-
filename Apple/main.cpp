@@ -43,7 +43,7 @@ int g_Mileage1;
 int StartTime;
 //敵キャラカウント
 int g_EnemyCount1;
-int g_Teki[10];
+int g_Teki;
 int g_Car, g_Barrier;		//キャラ画像変数
 //ランキングデータ（構造体）
 struct RankingData {
@@ -184,19 +184,9 @@ void GameMain(void)
 int LoadImages()
 {
 	//敵
-	if (g_Teki[0] = LoadGraph("images/chapter5/images/apple.bmp") == -1)return-1;
-	if (g_Teki[1] = LoadGraph("images/chapter5/images/apple.bmp") == -1)return-1;
-	if (g_Teki[2] = LoadGraph("images/chapter5/images/apple.bmp") == -1)return-1;
-	if (g_Teki[3] = LoadGraph("images/chapter5/images/apple.bmp") == -1)return-1;
-	if (g_Teki[4] = LoadGraph("images/chapter5/images/apple.bmp") == -1)return-1;
-	if (g_Teki[5] = LoadGraph("images/chapter5/images/apple.bmp") == -1)return-1;
-	if (g_Teki[6] = LoadGraph("images/chapter5/images/apple.bmp") == -1)return-1;
-	if (g_Teki[7] = LoadGraph("images/chapter5/images/apple.bmp") == -1)return-1;
-	if (g_Teki[8] = LoadGraph("images/chapter5/images/apple.bmp") == -1)return-1;
-	if (g_Teki[9] = LoadGraph("images/chapter5/images/apple.bmp") == -1)return-1;
+	if (g_Teki = LoadGraph("images/chapter5/images/apple.bmp") == -1)return-1;
 	//プレイヤー
-	if ((g_Car = LoadGraph("images/chapter5/images/apple.bmp")) == -1)return-1;
-	if ((g_Barrier = LoadGraph("images/chapter5/images/barrier.png")) == -1)return-1;
+	if ((g_Car = LoadGraph("images/chapter5/images/Right.bmp")) == -1)return-1;
 	return 0;
 }
 /***********************************************
@@ -246,7 +236,7 @@ void PlayerControl() {
 	DrawFormatString(510, 20, 0x000000, "ハイスコア");
 	DrawFormatString(560, 40, 0xFFFFFF, "%08d", g_Ranking[0].score);
 	DrawFormatString(510, 80, 0x000000, "避けた数");
-	DrawRotaGraph(523, 120, 0.3f, 0, g_Teki[0], TRUE, FALSE);
+	DrawRotaGraph(523, 120, 0.3f, 0, g_Teki, TRUE, FALSE);
 
 	DrawFormatString(510, 140, 0xFFFFFF, "%03d", g_EnemyCount1);
 }
@@ -286,7 +276,7 @@ void EnemyControl()
 		CreateEnemy();
 	}
 }
-/***********************************************
+/**********************************************
  * 敵機の生成
  * 引　数：なし
  * 戻り値：TRUE:成功 FALSE:失敗
@@ -295,8 +285,8 @@ int CreateEnemy() {
 	for (int i = 0; i < ENEMY_MAX; i++) {
 		if (g_enemy[i].flg == FALSE) {
 			g_enemy[i] = g_enemy00;
-			g_enemy[i].type = g_Teki[0];
-			g_enemy[i].img = g_Teki[0];
+			g_enemy[i].type = g_Teki;
+			g_enemy[i].img = g_Teki;
 			g_enemy[i].x = GetRand(4) * 105 + 40;
 			g_enemy[i].first_x = g_enemy[i].x;
 			g_enemy[i].speed = g_enemy[i].type * 2;
