@@ -147,21 +147,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppleMove.cpp" />
-    <ClCompile Include="Bomris.cpp" />
-    <ClCompile Include="BreakOut1.cpp" />
-    <ClCompile Include="Drive_and_Avoid.cpp" />
-    <ClCompile Include="GameEndKadai.cpp" />
-    <ClCompile Include="GameTitle.cpp" />
-    <ClCompile Include="GM_kihon01.cpp" />
-    <ClCompile Include="GM_kihon02.cpp" />
-    <ClCompile Include="GM_kihon03.cpp" />
-    <ClCompile Include="GM_kihon04.cpp" />
-    <ClCompile Include="Puzzle.cpp" />
-    <ClCompile Include="Ranking01.cpp" />
-    <ClCompile Include="Ranking02.cpp" />
-    <ClCompile Include="Ranking03.cpp" />
-    <ClCompile Include="Ranking04.cpp" />
-    <ClCompile Include="SameGame.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
