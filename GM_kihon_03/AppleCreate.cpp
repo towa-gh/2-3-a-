@@ -2,6 +2,7 @@
  ** 　第5章　ミニゲームをつくる(2)
  **　　　　　　　レース＆避けゲー
  ***********************************************/
+
 #include "DxLib.h"
 #define _USE_MATH_DEFINES
 #include<math.h>
@@ -9,6 +10,7 @@
  /***********************************************
   *変数宣言
   ***********************************************/
+
 int g_OldKey;//前回の入力キー
 int g_NowKey;//今回の入力キー
 int g_KeyFlg;//入力キー情報
@@ -31,10 +33,10 @@ int g_Mileage;//走行距離
 //敵カウント
 int g_EnemyCount1, g_EnemyCount2, g_EnemyCount3;
 
-int g_apple[1];//キャラ画像変数
-int g_apple[2];
-int g_apple[2];
-int g_apple[3];
+int g_Apple[1];//キャラ画像変数
+int g_GreenApple[2];//キャラ画像変数
+int g_YellowApple[3];//キャラ画像変数
+//int g_PoisonApple[4];//キャラ画像変数
 
 
 const int SCREEN_WIDTH = 640;
@@ -47,6 +49,7 @@ int g_Car, g_Barrier;//キャラ画像変数
 /***********************************************
  *定数を宣言
  ***********************************************/
+
  //自機の初期化
 const int PLAYER_POS_X = SCREEN_WIDTH / 2;
 const int PLAYER_POS_Y = SCREEN_HEIGHT - 100;
@@ -65,6 +68,7 @@ const int ENEMY_MAX = 8;
 const int ITEM_MAX = 3;
 
 //敵機の構造体
+
 struct ENEMY {
 	int flg;//使用タイミング
 	int type;//タイプ
@@ -74,6 +78,7 @@ struct ENEMY {
 	int point;//スコア加算
 };
 //敵機
+
 struct ENEMY g_enemy[ENEMY_MAX];
 struct ENEMY g_enemy00{TRUE,0,0,0,-50,63,120,0,1};
 struct ENEMY g_enemyCn{TRUE,4,0,0,-50,18,18,0,1};
@@ -83,6 +88,7 @@ struct ENEMY g_item00 = { TRUE,0,0,0,-50,50,50,0,1 };
 
 
 //自機の構造体
+
 struct PLAYER {
 	int flg;//使用フラグ
 	int x, y;//座標x,y
@@ -96,22 +102,27 @@ struct PLAYER {
 	int baricnt;//バリア継続時間
 	int bariup;//バリア回数(走行距離アップ)
 };
+
 //自機
+
 struct PLAYER g_Player;
 
 
 // ランキングデータ（構造体）
+
 struct	RankingData {
 	int		no;
 	char	name[11];
 	long	score;
 };
 // ランキングデータ変数宣言
+
 struct	RankingData		g_Ranking[10];
 
 /***********************************************
  *関数のプロトタイプ宣言
  ***********************************************/
+
 void GameInit(void);//ゲーム初期化処理
 void GameMain(void);//ゲームメイン処理
 
@@ -144,6 +155,7 @@ int HitBoxPlayer(PLAYER* p, ENEMY* e);//当たり判定
 /***********************************************
  *プログラムの開始
  ***********************************************/
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow) {
 
@@ -199,6 +211,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 /***********************************************
  *ゲームタイトル表示(メニュー画面)
  ***********************************************/
+
 void DrawGameTitle(void) {
 	static int MenuNo = 0;
 	//メニューカーソル移動処理
@@ -220,6 +233,7 @@ void DrawGameTitle(void) {
 /***********************************************
  *ゲーム初期処理
  ***********************************************/
+
 void GameInit(void) {
 	//スコアの初期化
 	g_Score = 0;
@@ -262,6 +276,7 @@ void GameInit(void) {
 /***********************************************
  *ゲームランキング描画表示
  ***********************************************/
+
 void DrawRanking(void) {
 	// スペースキーでメニューに戻る
 	if (g_KeyFlg & PAD_INPUT_M) g_GameState = 0;
@@ -280,6 +295,7 @@ void DrawRanking(void) {
 /***********************************************
  * ランキング入力処理
  ***********************************************/
+
 void InputRanking(void)
 {
 	//ランキング画像表示
@@ -305,6 +321,7 @@ void InputRanking(void)
 /***********************************************
  * ランキング並べ替え
  ***********************************************/
+
 void SortRanking(void)
 {
 	int i, j;
@@ -336,6 +353,7 @@ void SortRanking(void)
 /***********************************************
  * ランキングデータの保存
  ***********************************************/
+
 int  SaveRanking(void)
 {
 	FILE* fp;
@@ -359,6 +377,7 @@ int  SaveRanking(void)
 /*************************************
  * ランキングデータ読み込み
  *************************************/
+
 int ReadRanking(void)
 {
 	FILE* fp;
@@ -384,6 +403,7 @@ int ReadRanking(void)
 /***********************************************
  *ゲームヘルプ描画処理
  ***********************************************/
+
 void DrawHelp(void) {
 	//スペースキーでメニューに戻る
 	if (g_KeyFlg & PAD_INPUT_M) g_GameState = 0;
@@ -408,6 +428,7 @@ void DrawHelp(void) {
 /***********************************************
  *ゲームエンド描画処理
  ***********************************************/
+
 void DrawEnd(void) {
 	//エンド画像表示
 	DrawGraph(0, 0, g_EndImage, FALSE);
@@ -441,6 +462,7 @@ void GameMain(void) {
  * 引数：なし
  * 戻り値：なし
 ***********************************************/
+
 void BackScrool() {
 	//ステージ画像表示
 	//g_Mileage += 5;
@@ -461,6 +483,7 @@ void BackScrool() {
  * 引数：なし
  * 戻り値：なし
  ***********************************************/
+
 void PlayerControl() {
 	////燃料の消費
 	//g_Player.fuel -= g_Player.speed;
@@ -525,9 +548,9 @@ void PlayerControl() {
 	DrawFormatString(510, 20, 0x000000, "ハイスコア");
 	DrawFormatString(560, 40, 0xFFFFFF, "%08d",g_Ranking[0].score);
 	DrawFormatString(510, 80, 0x000000, "避けた数");
-	DrawRotaGraph(523, 120, 0.3f, 0, g_apple, TRUE, FALSE);
-	/*DrawRotaGraph(573, 120, 0.3f, 0, g_Teki[1], TRUE, FALSE);
-	DrawRotaGraph(623, 120, 0.3f, 0, g_Teki[2], TRUE, FALSE); */
+	DrawRotaGraph(523, 120, 0.3f, 0, g_Apple[1], TRUE, FALSE);
+	DrawRotaGraph(573, 120, 0.3f, 0, g_GreenApple[2], TRUE, FALSE);
+	DrawRotaGraph(623, 120, 0.3f, 0, g_YellowApple[3], TRUE, FALSE);
 
 	DrawFormatString(510, 140, 0xFFFFFF, "%03d", g_EnemyCount1);
 	DrawFormatString(560, 140, 0xFFFFFF, "%03d", g_EnemyCount2);
@@ -566,6 +589,7 @@ void PlayerControl() {
 /***********************************************
  *ゲームオーバ―画面描画処理
  ***********************************************/
+
 void DrawGameOver(void) {
 	g_Score = (g_Mileage / 10 * 10) + g_EnemyCount3 * 50 + g_EnemyCount2 * 100 + g_EnemyCount1 * 200;
 	//スペースキーでメニューに戻る
@@ -584,10 +608,10 @@ void DrawGameOver(void) {
 	DrawString(220, 170, "ゲームオーバー", 0xcc0000);
 	SetFontSize(16);
 	DrawString(180, 200, "走行距離", 0x000000);
-	DrawRotaGraph(230, 230, 0.3f, M_PI / 2, g_apple[1], TRUE,FALSE);
-	DrawRotaGraph(230, 250, 0.3f, M_PI / 2, g_apple[2], TRUE,FALSE);
-	DrawRotaGraph(230, 270, 0.3f, M_PI / 2, g_apple[3], TRUE,FALSE);
-	DrawRotaGraph(230, 290, 0.3f, M_PI / 2, g_apple[4], TRUE, FALSE);
+	DrawRotaGraph(230, 230, 0.3f, M_PI / 2, g_Apple[1], TRUE,FALSE);
+	DrawRotaGraph(230, 250, 0.3f, M_PI / 2, g_GreenApple[2], TRUE,FALSE);
+	DrawRotaGraph(230, 270, 0.3f, M_PI / 2, g_YellowApple[3], TRUE,FALSE);
+	//DrawRotaGraph(230, 290, 0.3f, M_PI / 2, g_Apple[4], TRUE, FALSE);
 
 	DrawFormatString(260, 200, 0xFFFFFF, "%6d x 10=%6d", g_Mileage / 10 * 10);
 	DrawFormatString(260, 222, 0xFFFFFF, "%6d x 50=%6d", g_EnemyCount3,g_EnemyCount3 * 50);
@@ -604,6 +628,7 @@ void DrawGameOver(void) {
  * 引数：なし
  * 戻り値：なし
 ***********************************************/
+
 void EnemyControl() {
 	for (int i = 0; i < ENEMY_MAX; i++) {
 		if (g_enemy[i].flg == TRUE) {
@@ -651,12 +676,14 @@ void EnemyControl() {
  * 引数：なし
  * 戻り値：TRUE:成功　FALSE:失敗
 ***********************************************/
+
 int CreateEnemy() {
 	for (int i = 0; i < ENEMY_MAX; i++) {
 		if (g_enemy[i].flg == FALSE) {
 			g_enemy[i] = g_enemy00;
 			g_enemy[i].type = GetRand(2);
-			g_enemy[i].img = g_apple;/*[g_enemy[i].type];*/
+			g_enemy[i].img = g_Apple[1];/*[g_enemy[i].type];*/
+		/*	g_enemy[i].img = g_GreenApple[2];*/
 			g_enemy[i].x = GetRand(4) * 105 + 40;
 			g_enemy[i].speed = g_enemy[i].type * 2;
 			//成功
@@ -672,6 +699,7 @@ int CreateEnemy() {
  * 引数：PLAYER ポインタ
  * 戻り値：TRUE:当たり　FALSE:なし
 ***********************************************/
+
 int HitBoxPlayer(PLAYER *p, ENEMY *e) {
 	//x,yは中心座標とする
 	int sx1 = p->x -(p->w / 2);
@@ -695,6 +723,7 @@ int HitBoxPlayer(PLAYER *p, ENEMY *e) {
  * 引数：なし
  * 戻り値：なし
 ***********************************************/
+
 //void ItemControl() {
 //	for (int i = 0; i < ITEM_MAX; i++) {
 //		if (g_item[i].flg == TRUE) {
@@ -751,11 +780,10 @@ int HitBoxPlayer(PLAYER *p, ENEMY *e) {
 //	//失敗
 //	return FALSE;
 //}
-
-
 /***********************************************
 *画像読み込み
 ***********************************************/
+
 int LoadImages() {
 	//タイトル
 	if ((g_TitleImage = LoadGraph("images/chapter5/Title.bmp")) == -1)return - 1;
@@ -776,7 +804,10 @@ int LoadImages() {
 	if ((g_EndImage = LoadGraph("images/chapter5/End.bmp")) == -1) return -1;
 
 	//敵
-	if ((g_apple =LoadGraph("images/chapter5/Apple.png",3)) == -1)return-1;
+	if ((g_Apple[1] =LoadGraph("images/chapter5/Apple.bmp")) == -1)return-1;
+	if ((g_GreenApple[2] = LoadGraph("images/chapter5/GreenApple.png")) == -1)return-1;
+	if ((g_YellowApple[3] = LoadGraph("images/chapter5/YellowApple.png")) == -1)return-1;
+	//if ((g_Apple[4] = LoadGraph("images/chapter5/Apple.bmp", )) == -1)return-1;
 
 	//ステージ背景
 	if ((g_StageImage = LoadGraph("images/chapter5/bg_natural_mori.jpg")) == -1) return -1;
