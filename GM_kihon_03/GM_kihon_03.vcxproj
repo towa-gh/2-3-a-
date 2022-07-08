@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppleCreate.cpp" />
+    <ClCompile Include="AppleCreate2.cpp" />
     <ClCompile Include="Bomris.cpp" />
     <ClCompile Include="BreakOut.cpp" />
     <ClCompile Include="GameEnd.cpp" />
@@ -163,6 +164,9 @@
     <ClCompile Include="p6.cpp" />
     <ClCompile Include="p8.cpp" />
     <ClCompile Include="SameGame.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AppleCreate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

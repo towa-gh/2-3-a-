@@ -81,5 +81,13 @@
     <ClCompile Include="AppleCreate.cpp">
       <Filter>ソース ファイル\AppleCreate</Filter>
     </ClCompile>
+    <ClCompile Include="AppleCreate2.cpp">
+      <Filter>ソース ファイル\AppleCreate</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AppleCreate.h">
+      <Filter>ソース ファイル\AppleCreate</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
