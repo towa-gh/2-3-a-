@@ -89,5 +89,8 @@
     <ClInclude Include="AppleCreate.h">
       <Filter>ソース ファイル\AppleCreate</Filter>
     </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>ソース ファイル\AppleCreate</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

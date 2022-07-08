@@ -7,6 +7,8 @@
 #include<math.h>
 #define RANKING_DATA 5
 #include "AppleCreate.h"
+#include"main.h"
+Apple apple;
 
  /***********************************************
   *•Ï”éŒ¾
@@ -162,7 +164,9 @@ void GameInit(void) {
 	//for (int i = 0; i < ENEMY_MAX; i++) {
 	//	g_enemy[i].flg = FALSE;
 	//}
+
 	create.Init();
+	
 
 	//ƒQ[ƒ€ƒƒCƒ“ˆ—‚Ö
 	g_GameState = 5;
@@ -223,4 +227,13 @@ int LoadImages() {
 	if ((g_StageImage = LoadGraph("images/chapter5/bg_natural_mori.jpg")) == -1) return -1;
 
 	return 0;
+}
+int Apple::GetApple() {
+
+	return g_Apple;
+}
+
+int Apple::GetMileage() {
+
+	return g_Mileage;
 }

@@ -1,5 +1,6 @@
 #include"DxLib.h"
 #include"AppleCreate.h"
+#include"main.h"
 
 Create create;
 
@@ -55,16 +56,19 @@ void Create::EnemyControl() {
 	for (int i = 0; i < ENEMY_MAX; i++) {
 		if (g_enemy[i].flg == TRUE) {
 			//敵の表示
-			DrawRotaGraph(g_enemy[i].x, g_enemy[i].y, 1.0f, 0, g_enemy[i].img, TRUE, FALSE);
+			DrawRotaGraph(g_enemy[i].x, g_enemy[i].y, 1.0f, 0, apple.GetApple(), TRUE, FALSE);
 
 			//if (g_Player.flg == FALSE)continue;
 
 			//真っすぐ下に移動
-			g_enemy[i].y += g_enemy[i].speed + g_Player.speed - PLAYER_SPEED + 1;
+			g_enemy[i].y -= g_enemy[i].speed + g_Player.speed - PLAYER_SPEED + 1;
 
 			//画面をはみ出したら消去
 			if (g_enemy[i].y > SCREEN_HEIGHT + g_enemy[i].h)g_enemy[i].flg = FALSE;
 		}
+	}
+		if (apple.GetMileage() / 10 % 50 == 0) {
+		CreateEnemy();
 	}
 }
 
@@ -78,7 +82,7 @@ int Create::CreateEnemy() {
 		if (g_enemy[i].flg == FALSE) {
 			g_enemy[i] = g_enemy00;
 			g_enemy[i].type = GetRand(2);
-			g_enemy[i].img = g_Apple;//[g_enemy[i].type];
+			g_enemy[i].img = apple.GetApple();//[g_enemy[i].type];
 			/*g_enemy[i].img = g_GreenApple;
 			g_enemy[i].img = g_YellowApple;*/
 			g_enemy[i].x = GetRand(4) * 105 + 40;
@@ -94,6 +98,6 @@ void Create::Init() {
 
 	//エネミーの初期設定
 	for (int i = 0; i < ENEMY_MAX; i++) {
-		g_enemy[i].flg = FALSE;
+		g_enemy[i].flg = TRUE;
 	}
 }
