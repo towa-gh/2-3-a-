@@ -32,14 +32,11 @@ int g_EnemyCount1, g_EnemyCount2, g_EnemyCount3;
 
 int g_Apple[3];//キャラ画像変数
 
-//int g_PoisonApple[4];//キャラ画像変数
-
-
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
 int g_StageImage;
-int g_Car, g_Barrier;//キャラ画像変数
+int g_Car;//キャラ画像変数
 
 
 /***********************************************
@@ -53,9 +50,6 @@ const int PLAYER_WIDTH = 63;
 const int PLAYER_HEIGHT = 120;
 const int PLAYER_SPEED = 5;
 const int PLAYER_HP = 1000;
-const int PLAYER_FUEL = 20000;
-const int PLAYER_BARRIER = 3;
-const int PLAYER_BARRIERUP = 10;
 
 //敵機の最大数
 const int ENEMY_MAX = 8;
@@ -88,27 +82,17 @@ struct PLAYER {
 	double angle;//機体の向き
 	int count;//タイミング用
 	int speed;//移動速度
-	int hp;//体力
-	int fuel;//燃料
-	int bari;//バリア回数
-	int baricnt;//バリア継続時間
-	int bariup;//バリア回数(走行距離アップ)
 };
-
 //自機
-
 struct PLAYER g_Player;
 
-
 // ランキングデータ（構造体）
-
 struct	RankingData {
 	int		no;
 	char	name[11];
 	long	score;
 };
 // ランキングデータ変数宣言
-
 struct	RankingData		g_Ranking[10];
 
 /***********************************************
@@ -117,7 +101,6 @@ struct	RankingData		g_Ranking[10];
 
 void GameInit(void);//ゲーム初期化処理
 void GameMain(void);//ゲームメイン処理
-void DrawRanking(void);//ランキング描画処理
 int LoadImages();//画像読み込み
 void BackScrool();
 
@@ -143,9 +126,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	if (DxLib_Init() == -1)return -1;//DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);//描画先画面を裏にする
 	if (LoadImages() == -1)return -1;//画像読み込み関数を呼び出し
-
-
-
 
 	//ゲームループ
 	while (ProcessMessage() == 0 && g_GameState != 99 && !(g_KeyFlg & PAD_INPUT_START)) {
@@ -194,10 +174,6 @@ void GameInit(void) {
 	g_Player.angle = 0.0;
 	g_Player.count = 0;
 	g_Player.speed = PLAYER_SPEED;
-	g_Player.hp = PLAYER_HP;
-	g_Player.fuel = PLAYER_FUEL;
-	g_Player.bari = PLAYER_BARRIER;
-	g_Player.bariup = PLAYER_BARRIERUP;
 
 	//エネミーの初期設定
 	for (int i = 0; i < ENEMY_MAX; i++) {
@@ -271,20 +247,6 @@ void PlayerControl() {
 		else {
 			DrawRotaGraph(g_Player.x, g_Player.y, 1.0f, 0, g_Car, TRUE, FALSE);
 		}
-
-		//バリア機能
-		if (g_KeyFlg & PAD_INPUT_C && g_Player.bari > 0 && g_Player.baricnt <= 0) {
-			g_Player.bari--;
-			g_Player.baricnt = 1000;
-		}
-		if (g_Player.baricnt > 0) {
-			g_Player.baricnt -= g_Player.speed;
-			DrawRotaGraph(g_Player.x, g_Player.y, 1.0f, 0, g_Barrier, TRUE, FALSE);
-		}
-		else {
-			g_Player.baricnt = 0;
-		}
-
 	}
 
 	else {
@@ -304,73 +266,6 @@ void PlayerControl() {
 	DrawFormatString(510, 140, 0xFFFFFF, "%03d", g_EnemyCount1);
 	DrawFormatString(560, 140, 0xFFFFFF, "%03d", g_EnemyCount2);
 	DrawFormatString(610, 140, 0xFFFFFF, "%03d", g_EnemyCount3);
-	DrawFormatString(510, 200, 0x000000, "走行距離");
-	DrawFormatString(555, 220, 0xFFFFFF, "%08d", g_Mileage / 10);
-	DrawFormatString(510, 240, 0x000000, "スピード");
-	DrawFormatString(555, 260, 0xFFFFFF, "%08d", g_Player.speed);
-
-	//バリアの表示
-	for (int i = 0; i < g_Player.bari; i++) {
-		DrawRotaGraph(520 + i * 25, 340, 0.2f, 0, g_Barrier, TRUE, FALSE);
-	}
-	//燃料ゲージの表示
-	int F_X = 510; int F_Y = 390; int F_W = 100; int F_H = 20;
-	DrawString(F_X, F_Y, "FUEL METER", 0x000000, 0);
-
-	//内側のゲージ
-	DrawBox(F_X, F_Y + 20, F_X + (int)(g_Player.fuel * F_W / PLAYER_FUEL), F_Y + 20 + F_H, 0x0066cc, TRUE);
-
-	//外側のゲージ
-	DrawBox(F_X, F_Y + 20, F_X + F_W, F_Y + 20 + F_H, 0x000000, FALSE);
-
-	//体力ゲージ
-	int X = 510; int Y = 430; int W = 100; int H = 20;
-	DrawString(X, Y, "PLAYER HP", 0x000000, 0);
-
-	//内部ゲージ
-	DrawBox(X, Y + 20, X + (int)(g_Player.hp * W / PLAYER_HP), Y + 20 + H, 0xff0000, TRUE);
-
-
-	//外側のゲージ枠
-	DrawBox(X, Y + 20, X + W, Y + 20 + H, 0x000000, FALSE);
-
-}
-/***********************************************
- *ゲームオーバ―画面描画処理
- ***********************************************/
-
-void DrawGameOver(void) {
-	g_Score = (g_Mileage / 10 * 10) + g_EnemyCount3 * 50 + g_EnemyCount2 * 100 + g_EnemyCount1 * 200;
-	//スペースキーでメニューに戻る
-	if (g_KeyFlg & PAD_INPUT_M) {
-		if (g_Ranking[RANKING_DATA].score >= g_Score) {
-			g_GameState = 0;
-		}
-		else {
-			g_GameState = 7;
-		}
-	}
-	DrawBox(150, 150, 490, 330, 0x009900, TRUE);
-	DrawBox(150, 150, 490, 330, 0x000000, FALSE);
-
-	SetFontSize(20);
-	DrawString(220, 170, "ゲームオーバー", 0xcc0000);
-	SetFontSize(16);
-	DrawString(180, 200, "走行距離", 0x000000);
-	DrawRotaGraph(230, 230, 0.3f, M_PI / 2, g_Apple[0], TRUE, FALSE);
-	DrawRotaGraph(230, 250, 0.3f, M_PI / 2, g_Apple[1], TRUE, FALSE);
-	DrawRotaGraph(230, 270, 0.3f, M_PI / 2, g_Apple[2], TRUE, FALSE);
-	//DrawRotaGraph(230, 290, 0.3f, M_PI / 2, g_Apple[4], TRUE, FALSE);
-
-	DrawFormatString(260, 200, 0xFFFFFF, "%6d x 10=%6d", g_Mileage / 10 * 10);
-	DrawFormatString(260, 222, 0xFFFFFF, "%6d x 50=%6d", g_EnemyCount3, g_EnemyCount3 * 50);
-	DrawFormatString(260, 243, 0xFFFFFF, "%6d x 100=%6d", g_EnemyCount2, g_EnemyCount2 * 100);
-	DrawFormatString(260, 264, 0xFFFFFF, "%6d x 200=%6d", g_EnemyCount1, g_EnemyCount1 * 200);
-
-	DrawString(310, 290, "スコア", 0x000000);
-	DrawFormatString(260, 290, 0xFFFFFF, "=%6d", g_Score);
-	DrawString(150, 450, "---スペースキーを押してタイトルへ戻る---", 0xFFFFFF, 0);
-
 }
 /***********************************************
  *エネミーの移動
@@ -401,15 +296,10 @@ void EnemyControl() {
 				if (g_enemy[i].type == 2)g_EnemyCount3++;
 			}
 			//当たり判定
-			if (HitBoxPlayer(&g_Player, &g_enemy[i]) == TRUE && g_Player.baricnt <= 0) {
+			if (HitBoxPlayer(&g_Player, &g_enemy[i]) == TRUE) {
 
 				g_Player.flg = FALSE;
-				g_Player.speed = PLAYER_SPEED;
-				g_Player.count = 0;
-				g_Player.hp -= 100;
 				g_enemy[i].flg = FALSE;
-				if (g_Player.hp <= 0)
-					g_GameState = 6;
 			}
 
 		}
@@ -431,8 +321,8 @@ int CreateEnemy() {
 		if (g_enemy[i].flg == FALSE) {
 			g_enemy[i] = g_enemy00;
 			g_enemy[i].type = GetRand(2);
-			g_enemy[i].img = g_Apple[g_enemy[i].type];/*[g_enemy[i].type];*/
-			g_enemy[i].x = GetRand(4) * 105 + 40;
+			g_enemy[i].img = g_Apple[g_enemy[i].type];
+			g_enemy[i].x = GetRand(6) * 70 + 40;
 			g_enemy[i].speed = g_enemy[i].type * 2;
 			//成功
 			return TRUE;
@@ -471,23 +361,17 @@ int HitBoxPlayer(PLAYER* p, ENEMY* e) {
 ***********************************************/
 
 int LoadImages() {
-	//タイトル
-	if ((g_TitleImage = LoadGraph("images/chapter5/Title.bmp")) == -1)return -1;
-	//メニュー
-	if ((g_Menu = LoadGraph("images/chapter5/menu.bmp")) == -1) return -1;
-	if ((g_Cone = LoadGraph("images/chapter5/cone.bmp")) == -1) return-1;
 	//敵
-	if ((g_Apple[0] = LoadGraph("images/chapter5/Apple.png")) == -1)return-1;
-	if ((g_Apple[1] = LoadGraph("images/chapter5/GreenApple2.png")) == -1)return-1;
-	if ((g_Apple[2] = LoadGraph("images/chapter5/YellowApple3.png")) == -1)return-1;
+	if ((g_Apple[0] = LoadGraph("images/Apple.png")) == -1)return-1;
+	if ((g_Apple[1] = LoadGraph("images/GreenApple1.png")) == -1)return-1;
+	if ((g_Apple[2] = LoadGraph("images/YellowApple1.png")) == -1)return-1;
 	//if ((g_Apple[4] = LoadGraph("images/chapter5/Apple.bmp", )) == -1)return-1;
 
 	//ステージ背景
-	if ((g_StageImage = LoadGraph("images/chapter5/bg_natural_mori.jpg")) == -1) return -1;
+	if ((g_StageImage = LoadGraph("images/bg_natural_mori.jpg")) == -1) return -1;
 
 	//プレイヤー
-	if ((g_Car = LoadGraph("images/chapter5/car1pol.bmp")) == -1) return -1;
-	if ((g_Barrier = LoadGraph("images/chapter5/barrier.png")) == -1) return -1;
+	if ((g_Car = LoadGraph("images/Right.png")) == -1) return -1;
 
 	return 0;
 }
