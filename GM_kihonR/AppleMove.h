@@ -1,32 +1,19 @@
 #pragma once
-
-class AppleMove {
+class Move {
 private:
+	int SCREEN_HEIGHT = 480;
 
-	const int SCREEN_HEIGHT = 480;
-	const int SCREEN_WIDTH = 640;
+	int g_Apple;//キャラ画像変数
+	//int g_GreenApple;//キャラ画像変数
+	//int g_YellowApple;//キャラ画像変数
+	//int g_PoisonApple;//キャラ画像変数
 
-
-
-	/*int g_enemy;*/
-	//int g_Mileage;
-	//int g_apple;
-	/*int g_GameState;*/
-
+	int ENEMY_MAX = 10;
 
 public:
-	//AppleMove();
+	Move();
 	void EnemyControl();
 	int CreateEnemy();
-
-	/*int getg_Mileage();
-	int getg_apple();*/
-	
-	/*void GameInit();*/
-
-	/*void BackScrool();*/
-
-	/*int LoadImages();*/
+	void Init();
 };
-
-extern AppleMove applemove ;
+extern Move move;

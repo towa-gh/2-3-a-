@@ -1,9 +1,8 @@
 #pragma once
 
 
-class Move {
+class Apple {
 private:
-
 
 
 	/*int g_enemy;*/
@@ -15,8 +14,8 @@ private:
 public:
 	//AppleMove();
 
-	int getg_Mileage();
-	int getg_apple();
+	int GetMileage();
+	int GetApple();
 
 	/*void GameInit();*/
 
@@ -25,4 +24,4 @@ public:
 	/*int LoadImages();*/
 };
 
-extern Move move;
+extern Apple apple;
