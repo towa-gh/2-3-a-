@@ -56,7 +56,7 @@ void Player::PlayerControl()
 
 
 
-		if (moveplayer.getNowKey() & PAD_INPUT_LEFT) {
+		else if (moveplayer.getNowKey() & PAD_INPUT_LEFT) {
 
 			saigo = moveplayer.getg_PlayerLeft();
 

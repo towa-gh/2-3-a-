@@ -105,8 +105,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			GameMain();     //ゲームメイン処理
 			break;
 
-
-
 		}
 
 		ScreenFlip();			// 裏画面の内容を表画面に反映
@@ -164,7 +162,7 @@ void  GameMain(void)
 MovePlayer::MovePlayer(){
 	g_Player = 0;
 	g_PlayerRight = 0;
-	g_PlayerLeft = 0;
+	g_PlayerLeft=0;
 }
 int MovePlayer::getg_Player() {
 
