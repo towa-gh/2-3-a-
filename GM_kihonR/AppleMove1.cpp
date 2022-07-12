@@ -41,6 +41,7 @@ struct ENEMY g_enemy00 { TRUE, 0, 0, 0, -50, 63, 120, 0, 1 };
 struct ENEMY g_enemyCn { TRUE, 4, 0, 0, -50, 18, 18, 0, 1 };
 
 Move::Move() {
+
 	ENEMY_MAX = 10;
 	g_Apple = 10;
 	/*g_GreenApple;

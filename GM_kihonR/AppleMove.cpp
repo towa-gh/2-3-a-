@@ -139,7 +139,7 @@ void DrawGameTitle(void) {
 	//メニュー
 	DrawGraph(120, 200, g_Menu, TRUE);
 	//メニューカーソル
-	DrawRotaGraph(90, 220 + MenuNo * 40, 0.7f, M_PI / 2, g_Apple, TRUE);
+	DrawRotaGraph(125, 220 + MenuNo * 35, 0.7f, M_PI / 50, g_Apple, TRUE);
 }
 /***********************************************
  *ゲーム初期処理
@@ -203,10 +203,10 @@ void BackScrool() {
 ***********************************************/
 int LoadImages() {
 	//タイトル
-	if ((g_TitleImage = LoadGraph("images/Apple/appleT.png")) == -1)return -1;
+	if ((g_TitleImage = LoadGraph("images/Apple/Title.png")) == -1)return -1;
 	//メニュー
-	if ((g_Menu = LoadGraph("images/Apple/menu.bmp")) == -1) return -1;
-	if ((g_Cone = LoadGraph("images/Apple/cone.bmp")) == -1) return-1;
+	if ((g_Menu = LoadGraph("images/Apple/menu2.png")) == -1) return -1;
+	if ((g_Cone = LoadGraph("images/Apple/GA1.png")) == -1) return-1;
 
 
 	//ランキング画像データの読み込み
@@ -216,7 +216,7 @@ int LoadImages() {
 	//if ((g_EndImage = LoadGraph("images/chapter5/End.bmp")) == -1) return -1;
 
 	//敵
-	if ((g_Apple = LoadGraph("images/Apple/apple1.png")) == -1)return-1;
+	if ((g_Apple = LoadGraph("images/Apple/GA1.png")) == -1)return-1;
 	/*if ((g_GreenApple = LoadGraph("images/chapter5/GreenApple.png")) == -1)return-1;
 	if ((g_YellowApple = LoadGraph("images/chapter5/YellowApple.png")) == -1)return-1;*/
 	//if ((g_Apple[4] = LoadGraph("images/chapter5/Apple.bmp" )) == -1)return-1;
