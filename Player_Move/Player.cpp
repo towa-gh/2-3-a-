@@ -2,7 +2,8 @@
 #define _USE_MATH_DEFINES
 #include<math.h>
 #include"Player.h"
-#include"Main.h"
+#include"MovePlayer.h"
+
 
 
 
@@ -15,58 +16,47 @@ const int PLAYER_SPEED = 5;
 
 Player player;
 
-//Main main;
+
+//Player Plyaer() {
+//
+//	int playerX = 300;
+//
+//	int playerY = 400;
+//
+//}
 
 
-void Player::PlayerControl()
+
+void Player::PlayerControl(int L, int R)
 {
+
+	//DrawGraph(g_player.x, g_player.y, saigo, TRUE);
 	
-	//Main main;
-
-	 saigo = moveplayer.getg_PlayerLeft();
-
-	/*int PlayerPojishonRihght= DrawRotaGraph(g_player.x, g_player.y, 1.0f, 0, g_PlayerRight, TRUE, FALSE);*/
-	/*int PlayerPojishonLeft = DrawRotaGraph(g_player.x, g_player.y, 1.0f, 0, g_PlayerLeft, TRUE, FALSE);*/
-	DrawRotaGraph(g_player.x, g_player.y, 1.0f, 0, saigo, TRUE, FALSE);
-
-
 	//プレイヤーの表示
 	//上下左右移動
 	if (g_player.flg == TRUE) {
 
-		DrawRotaGraph(g_player.x, g_player.y, 1.0f, 0, saigo, TRUE, FALSE);
+		DrawRotaGraph(g_player.x, g_player.y, 1.0f,0, saigo, TRUE, FALSE);
 
 		if (moveplayer.getNowKey() & PAD_INPUT_RIGHT) {
 
-			saigo = moveplayer.getg_PlayerRight();
 
-			/*int PlayerPojishonLeft = DrawRotaGraph(g_player.x, g_player.y, 1.0f, 0, g_PlayerLeft, TRUE, FALSE);*/
-
-			/*DrawRotaGraph(g_player.x, g_player.y, 1.0f, M_PI / 20, g_PlayerRight, TRUE, FALSE);*/
-
-			DrawRotaGraph(g_player.x, g_player.y, 1.0f, M_PI / 20, saigo, TRUE, FALSE);
+			DrawRotaGraph(g_player.x, g_player.y, 1.0f, M_PI / 20, R, TRUE, FALSE);
 			g_player.x += g_player.speed;
 
-
-			saigo = moveplayer.getg_PlayerRight();
-
+			saigo = R;
 
 		}
 
 
 
+		 if (moveplayer.getNowKey() & PAD_INPUT_LEFT) {
 
-		else if (moveplayer.getNowKey() & PAD_INPUT_LEFT) {
 
-			saigo = moveplayer.getg_PlayerLeft();
-
-			/*DrawRotaGraph(g_player.x, g_player.y, 1.0f, M_PI / -20, g_PlayerLeft, TRUE, FALSE);*/
-
-			DrawRotaGraph(g_player.x, g_player.y, 1.0f, M_PI / -20, saigo, TRUE, FALSE);
+			DrawRotaGraph(g_player.x, g_player.y, 1.0f, M_PI / -20, L, TRUE, FALSE);
 			g_player.x -= g_player.speed;
 
-
-			saigo = moveplayer.getg_PlayerLeft();
+			saigo = L;
 
 		}
 
@@ -81,15 +71,13 @@ void Player::PlayerControl()
 	if (g_player.x > moveplayer.getSCREEN_WIDTH() - 50)  g_player.x = moveplayer.getSCREEN_WIDTH() - 50;
 
 
-
-
 }
 
 void Player::getPlayer() {
 
 	g_player.flg = TRUE;
 	g_player.x = PLAYER_POS_X;
-	g_player.y = PLAYER_POS_Y;
+	g_player.y = 380; //PLAYER_POS_Y;
 	g_player.speed = PLAYER_SPEED;
 }
 

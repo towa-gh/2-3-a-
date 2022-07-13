@@ -17,13 +17,17 @@ public:
 
 	int getg_Player();
 
-	int getg_PlayerRight();
+	int getg_PlayerRight(int b);
 
-	int getg_PlayerLeft();
+	int getg_PlayerLeft(int a);
 
 	int getSCREEN_WIDTH();
 
 	int getSCREEN_HEIGHT();
+
+	//int getPlayerX();
+
+	//int getPlayerY();
 
 };
 

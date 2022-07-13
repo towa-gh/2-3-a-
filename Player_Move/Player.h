@@ -9,6 +9,10 @@ private:
 	
 	int kansei;
 
+	//int playerX;
+
+	//int playerY;
+
 
 	//é©ã@ÇÃç\ë¢ëÃ
 	struct PLAYER {
@@ -23,15 +27,14 @@ private:
 
 public:
 
+	//Player();
+
 	void getPlayer();
 
-	void PlayerControl();
+	void PlayerControl(int L,int R);
 
-	//void GameInit(void);
+	void getsaigo();
 
-	//int LoadImages();
-
-	//void GameMain(void);
 };
 
 extern Player player;

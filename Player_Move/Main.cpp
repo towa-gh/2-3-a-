@@ -1,13 +1,8 @@
-/****************************************************************************************************************
-*** 　第５章　ミニゲームを作る（２）
-***
-*** 　レース＆避けゲー
-*****************************************************************************************************************/
 #include"DxLib.h"
 #define _USE_MATH_DEFINES
 #include<math.h>
 #include"Player.h"
-#include"Main.h"
+#include"MovePlayer.h"
 
 MovePlayer moveplayer;
 
@@ -45,6 +40,9 @@ int g_TitleImage;     //画像用変数
 
 int g_Player, g_PlayerRight, g_PlayerLeft;          //キャラ画像変数
 
+int playerX;
+
+int playerY;
 
 int MovePlayer::getNowKey() {
 
@@ -60,6 +58,7 @@ int MovePlayer::getNowKey() {
 *****************************************************************************************************************/
 void GameInit(void);           //ゲーム初期化処理
 void GameMain(void);           //ゲームメイン処理
+//void GamePlayer(void);
 
 
 int LoadImages();              //画像読み込み
@@ -73,7 +72,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
 
 	// タイトル設定
-	SetMainWindowText("Drive&Avoid");
+	SetMainWindowText("リンゴ落とし");
 
 	ChangeWindowMode(TRUE);		// ウィンドウモードで起動
 
@@ -86,7 +85,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// ゲームループ
 	while (ProcessMessage() == 0 && g_GameState != 99 && !(g_KeyFlg & PAD_INPUT_START)) {
 
-		//// 入力キー取得
+		// 入力キー取得
 		g_OldKey = g_NowKey;
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 		g_KeyFlg = g_NowKey & ~g_OldKey;
@@ -101,9 +100,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			GameInit();		//ゲーム初期処理
 			break;
 
-		case 5:
+		//case 1:
+		//	player.getPlayer();		//ゲーム初期処理
+		//	break;
+
+		case 2:
 			GameMain();     //ゲームメイン処理
 			break;
+
+		//case 3:
+			//player.PlayerControl();
+			//break;
 
 		}
 
@@ -131,9 +138,8 @@ void GameInit(void)
 	player.getPlayer();
 	
 
-
 	//ゲームメイン処理へ
-	g_GameState = 5;
+	g_GameState = 2;
 
 
 
@@ -149,36 +155,63 @@ void GameInit(void)
 void  GameMain(void)
 {
 
+	//DrawGraph(player.DrawPlayerLeft(), 20, g_PlayerRight, TRUE);
+	//DrawGraph(playerX, playerY, g_PlayerLeft, TRUE);
 	
+	player.PlayerControl(g_PlayerLeft, g_PlayerRight);
 
-	player.PlayerControl();
+	//DrawGraph(300, 300, g_PlayerLeft, TRUE);
 
+	//if (moveplayer.getNowKey() & PAD_INPUT_RIGHT) {
+
+
+		/*int PlayerPojishonLeft = DrawRotaGraph(g_player.x, g_player.y, 1.0f, 0, g_PlayerLeft, TRUE, FALSE);*/
+
+		/*DrawRotaGraph(g_player.x, g_player.y, 1.0f, M_PI / 20, g_PlayerRight, TRUE, FALSE);*/
+
+		//DrawRotaGraph(player.getPlayerX(), player.getPlayerY(), 1.0f, M_PI / 20, g_PlayerLeft, TRUE, FALSE);
+		//player.getPlayerX() += 10;
+
+
+
+	//}
 
 	SetFontSize(16);
 	DrawString(20, 20, "GAME MEIN", 0xffffff, 0);
-
-
+	
 }
+
 MovePlayer::MovePlayer(){
 	g_Player = 0;
 	g_PlayerRight = 0;
-	g_PlayerLeft=0;
+	g_PlayerLeft = 0;
 }
+
 int MovePlayer::getg_Player() {
 
 	return g_Player;
 }
 
-int MovePlayer::getg_PlayerRight() {
+int MovePlayer::getg_PlayerRight(int b) {
 
-	return g_PlayerRight;
+	return b;
 }
 
-int MovePlayer::getg_PlayerLeft() {
-
-	return g_PlayerLeft;
+int MovePlayer::getg_PlayerLeft(int a) {
+	return a;
 }
 
+//int MovePlayer::getPlayerX() {
+//
+//	playerX = 300;
+//	return 0;
+//}
+//
+//int MovePlayer::getPlayerY() {
+//
+//	playerY = 400;
+//	return 0;
+//}
 
 
 ///****************************************************************************************************************
@@ -191,11 +224,13 @@ int LoadImages()
 
 
 	//プレイヤー
-	if ((g_Player = LoadGraph("images/Chapter5/22782619.bmp")) == -1)return -1;
-	if ((g_PlayerRight = LoadGraph("images/Chapter5/Right.png")) == -1)return -1;
-	if ((g_PlayerLeft = LoadGraph("images/Chapter5/Left.bmp")) == -1)return -1;
+	//if ((g_Player = LoadGraph("images/Chapter5/22782619.bmp")) == -1)return -1;
+	//if ((g_PlayerRight = LoadGraph("images/Chapter5/Right.png")) == -1)return -1;
+	//if ((g_PlayerLeft = LoadGraph("images/Chapter5/Left.bmp")) == -1)return -1;
+
+	g_PlayerRight = LoadGraph("images/Chapter5/Right.bmp");
+	g_PlayerLeft = LoadGraph("images/Chapter5/Left.bmp");
 
 	return 0;
-
 
 }
