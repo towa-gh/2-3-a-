@@ -1,8 +1,3 @@
-/***********************************************
- ** 　第5章　ミニゲームをつくる(2)
- **　　　　　　　レース＆避けゲー
- ***********************************************/
-
 #include "DxLib.h"
 #define _USE_MATH_DEFINES
 #include<math.h>
@@ -14,27 +9,18 @@
 int g_OldKey;//前回の入力キー
 int g_NowKey;//今回の入力キー
 int g_KeyFlg;//入力キー情報
-
 int g_GameState = 0;//ゲームモード
-
 int g_TitleImage;//画像用変数
 int g_Menu, g_Cone;//メニュー画像変数
-
-
 int g_Score = 0;//スコア
-
 int g_WaitTime = 0;//待ち時間
 int g_EndImage;
-
 int g_Mileage;//走行距離
 //敵カウント
 int g_EnemyCount1, g_EnemyCount2, g_EnemyCount3;
-
 int g_Apple[3];//キャラ画像変数
-
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
-
 int g_StageImage;
 int g_Car;//キャラ画像変数
 
