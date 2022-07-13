@@ -84,7 +84,7 @@ void Move::EnemyControl() {
 			if (g_enemy[i].y > SCREEN_HEIGHT + g_enemy[i].h)g_enemy[i].flg = FALSE;
 		}
 	}
-	if (apple.GetMileage() / 10 % 50 == 0) {
+	if (apple.GetMileage() / 5 % 50 == 0) {
 		CreateEnemy();
 	}
 }
@@ -102,7 +102,7 @@ int Move::CreateEnemy() {
 			g_enemy[i].img = apple.GetApple();//[g_enemy[i].type];
 			/*g_enemy[i].img = g_GreenApple;
 			g_enemy[i].img = g_YellowApple;*/
-			g_enemy[i].x = GetRand(4) * 105 + 40;//4 Get Rand
+			g_enemy[i].x = GetRand(7) * 100+20/*105 + 40*/;//4 Get Rand
 			g_enemy[i].speed = g_enemy[i].type * 2;
 			//ê¨å˜
 			return TRUE;
