@@ -33,8 +33,6 @@ public:
 
 	void PlayerControl(int L,int R);
 
-	void getsaigo();
-
 };
 
 extern Player player;
