@@ -24,6 +24,8 @@ int g_Menu, g_Cone;//メニュー画像変数
 int g_Score = 0;//スコア
 int g_RankingImage;//画像用変数
 
+int g_helpImage;
+
 //int g_Item[2];//アイテム画像変数
 
 //int g_WaitTime = 0;//待ち時間
@@ -209,6 +211,8 @@ int LoadImages() {
 	if ((g_Menu = LoadGraph("images/Apple/menu2.png")) == -1) return -1;
 	if ((g_Cone = LoadGraph("images/Apple/Red.png")) == -1) return-1;
 
+	//ヘルプ
+	if ((g_helpImage = LoadGraph("images/Apple/Gamehelp.png")) == -1)return -1;
 
 	//ランキング画像データの読み込み
 	//if ((g_RankingImage = LoadGraph("images/chapter5/Ranking.bmp")) == -1) return -1;
@@ -248,19 +252,20 @@ void DrawHelp(void) {
 	if (g_KeyFlg & PAD_INPUT_M) g_GameState = 0;
 
 	//タイトル画像表示
-	DrawGraph(0, 0, g_TitleImage, FALSE);
-	SetFontSize(16);
-	DrawString(20, 120, "ヘルプ画面", 0xffffff, 0);
+	DrawGraph(0, 0, g_helpImage, FALSE);
+	SetFontSize(20);
+	DrawString(280, 120, "操作説明", 0xf, 0);
 
-	DrawString(20, 160, "これは障害物を避けながら", 0xffffff, 0);
-	DrawString(20, 180, "走り続けるゲームです", 0xffffff, 0);
-	DrawString(20, 200, "燃料が尽きるか障害物に", 0xffffff, 0);
-	DrawString(20, 220, "数回当たるとゲームオーバーです", 0xffffff, 0);
-	DrawString(20, 250, "アイテム一覧", 0xffffff, 0);
-	/*DrawGraph(20, 260, g_Item[0], TRUE);*/
+	DrawString(190, 160, "左スティックを倒すと左に移動", 0xf, 0);
+	DrawString(190, 180, "右スティックを倒すと右に移動", 0xf, 0);
+	DrawString(190, 200, "STRATボタンを押すとポーズ画面", 0xf, 0);
+	/*DrawString(190, 220, "なるとゲームオーバーです", 0xf, 0);*/
+	/*DrawString(20, 250, "アイテム一覧", 0xffffff, 0);
+	DrawGraph(20, 260, g_Item[0], TRUE);
 	DrawString(20, 315, "取ると燃料が回復するよ。", 0xffffff, 0);
-	/*DrawGraph(20, 335, g_Item[1], TRUE);*/
+	DrawGraph(20, 335, g_Item[1], TRUE);
 	DrawString(20, 385, "ダメージを受けている時に取ると耐久回復", 0xffffff, 0);
-	DrawString(20, 405, "耐久が減っていなかったら燃料が少し回復するよ。", 0xffffff, 0);
+	DrawString(20, 405, "耐久が減っていなかったら燃料が少し回復するよ。", 0xffffff, 0);*/
 	DrawString(20, 450, "---- スペースキーを押してタイトルへ戻る ----", 0xffffff, 0);
+
 }
