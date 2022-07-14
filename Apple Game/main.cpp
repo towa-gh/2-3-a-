@@ -48,43 +48,6 @@ int g_Car;//キャラ画像変数
  ***********************************************/
 
  //自機の初期化
-const int PLAYER_POS_X = SCREEN_WIDTH / 2;
-const int PLAYER_POS_Y = SCREEN_HEIGHT - 100;
-const int PLAYER_WIDTH = 63;
-const int PLAYER_HEIGHT = 120;
-const int PLAYER_SPEED = 5;
-
-//敵機の最大数
-const int ENEMY_MAX = 8;
-
-//敵機の構造体
-
-struct ENEMY {
-	int flg;//使用タイミング
-	int type;//タイプ
-	int img;//画像
-	int x, y, w, h;//座標x,y 幅w　高さh
-	int speed;//移動速度
-	int point;//スコア加算
-};
-//敵機
-
-struct ENEMY g_enemy[ENEMY_MAX];
-struct ENEMY g_enemy00 { TRUE, 0, 0, 0, -50, 63, 120, 0, 1 };
-struct ENEMY g_enemyCn { TRUE, 4, 0, 0, -50, 18, 18, 0, 1 };
-
-//自機の構造体
-
-struct PLAYER {
-	int flg;//使用フラグ
-	int x, y;//座標x,y
-	int w, h;//幅w 高さh
-	double angle;//機体の向き
-	int count;//タイミング用
-	int speed;//移動速度
-};
-//自機
-struct PLAYER g_Player;
 
 // ランキングデータ（構造体）
 struct	RankingData {
