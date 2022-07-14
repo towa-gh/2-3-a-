@@ -1,83 +1,42 @@
 #include"DxLib.h"
 #define _USE_MATH_DEFINES
 #include<math.h>
-#include"Player.h"
 #include"MovePlayer.h"
+#include"Main.h"
 
-
-
-
-////自機の初期値
-const int PLAYER_POS_X = moveplayer.getSCREEN_WIDTH() / 2;
-const int PLAYER_POS_Y = moveplayer.getSCREEN_HEIGHT() - 100;
-const int PLAYER_WIDTH = 63;
-const int PLAYER_HEIGHT = 120;
-const int PLAYER_SPEED = 5;
-
-Player player;
-
-
-//Player Plyaer() {
-//
-//	int playerX = 300;
-//
-//	int playerY = 400;
-//
-//}
-
-
-
-void Player::PlayerControl(int L, int R)
+MovePlayer moveplayer;
+MovePlayer::MovePlayer() {
+	saigo = 0;
+	flg = 0;          //使用フラグ
+	x = 0;
+	y = 0;          //座標ｘ.ｙ
+	speed = 0;          //移動速度
+}
+void MovePlayer::PlayerControl(int a, int b)
 {
 
-	//DrawGraph(g_player.x, g_player.y, saigo, TRUE);
+	if (flg == TRUE) {
+		if (applegame.getNowKey() & PAD_INPUT_RIGHT)x += speed;
+		if (applegame.getNowKey() & PAD_INPUT_LEFT)x -= speed;
+	}
 
 	//プレイヤーの表示
 	//上下左右移動
-	if (g_player.flg == TRUE) {
+	if (flg == TRUE) {
 
-		DrawRotaGraph(g_player.x, g_player.y, 1.0f, 0, saigo, TRUE, FALSE);
-
-		if (moveplayer.getNowKey() & PAD_INPUT_RIGHT) {
-
-
-			DrawRotaGraph(g_player.x, g_player.y, 1.0f, M_PI / 20, R, TRUE, FALSE);
-			g_player.x += g_player.speed;
-
-			saigo = R;
-
+		if (applegame.getNowKey() & PAD_INPUT_RIGHT) {
+			saigo = a;
+			DrawGraph(x, y, saigo, TRUE);
 		}
 
-
-
-		if (moveplayer.getNowKey() & PAD_INPUT_LEFT) {
-
-
-			DrawRotaGraph(g_player.x, g_player.y, 1.0f, M_PI / -20, L, TRUE, FALSE);
-			g_player.x -= g_player.speed;
-
-			saigo = L;
-
+		if (applegame.getNowKey() & PAD_INPUT_LEFT) {
+			saigo = b;
+			DrawGraph(x, y, saigo, TRUE);
 		}
-
-
-
-
+		else
+			DrawGraph(x, y, saigo, TRUE);
 	}
-
 	//画面をはみ出さないようにする
-	if (g_player.x < 32)  g_player.x = 32;
-
-	if (g_player.x > moveplayer.getSCREEN_WIDTH() - 50)  g_player.x = moveplayer.getSCREEN_WIDTH() - 50;
-
-
+	if (x < 32)  x = 32;
+	if (x > applegame.getSCREEN_WIDTH() - 50)  x = applegame.getSCREEN_WIDTH() - 50;
 }
-
-void Player::getPlayer() {
-
-	g_player.flg = TRUE;
-	g_player.x = PLAYER_POS_X;
-	g_player.y = 380; //PLAYER_POS_Y;
-	g_player.speed = PLAYER_SPEED;
-}
-

@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseAP.cpp" />
     <ClCompile Include="CreateApple.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="HitBox.cpp" />
