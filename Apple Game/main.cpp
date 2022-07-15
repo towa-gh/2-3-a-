@@ -15,8 +15,7 @@
   *変数宣言
   ***********************************************/
 AppleGame applegame;
-BasePlayer bp;
-PBOX pbox;
+BaseAP baseap;
 
 int g_OldKey;//前回の入力キー
 int g_NowKey;//今回の入力キー
@@ -30,8 +29,6 @@ int g_Mileage;//走行距離
 int g_EnemyCount1, g_EnemyCount2, g_EnemyCount3;//敵カウント
 int g_Apple[3];//キャラ画像変数
 int g_Player, g_PlayerRight, g_PlayerLeft;          //キャラ画像変数
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
 int g_StageImage;
 
 /***********************************************
@@ -109,7 +106,7 @@ void GameInit(void) {
 	g_EnemyCount3 = 0;
 
 	//プレイヤーの初期設定
-	bp.PlayerInit();
+	baseap.PlayerInit();
 
 	//エネミーの初期設定
 
@@ -140,9 +137,8 @@ int LoadImages() {
 	if ((g_StageImage = LoadGraph("images/bg_natural_mori.jpg")) == -1) return -1;
 
 	//プレイヤー
-	if ((g_Player = LoadGraph("images/Chapter5/22782619.bmp")) == -1)return -1;
-	if ((g_PlayerRight = LoadGraph("images/Chapter5/Right.png")) == -1)return -1;
-	if ((g_PlayerLeft = LoadGraph("images/Chapter5/Left.bmp")) == -1)return -1;
+	if ((g_PlayerRight = LoadGraph("images/Right.png")) == -1)return -1;
+	if ((g_PlayerLeft = LoadGraph("images/Left.bmp")) == -1)return -1;
 
 	return 0;
 }

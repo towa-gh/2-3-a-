@@ -5,7 +5,6 @@ private:
 	const int SCREEN_WIDTH = 640;
 	const int SCREEN_HEIGHT = 480;
 public:
-	AppleGame();
 	int getNowKey();
 	int getg_Player();
 	int getg_PlayerRight(int b);

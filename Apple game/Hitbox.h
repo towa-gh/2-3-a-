@@ -1,14 +1,9 @@
 #pragma once
-extern struct PBOX {
-	float left, top, right, bottom;
-};
-extern struct ABOX {
-	float left, top, right, bottom;
-};
-class Box {
+#include"BaseAP.h"
+class HitBox : public BaseAP{
 
 public:
-	bool CheckHit(const PBOX& player, const ABOX& apple);			//“–‚½‚è”»’è
+	int HitBoxPlayer(Apple* a);
 
 };
-extern Box box;
+extern HitBox hitbox;

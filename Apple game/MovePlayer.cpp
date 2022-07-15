@@ -7,36 +7,32 @@
 MovePlayer moveplayer;
 MovePlayer::MovePlayer() {
 	saigo = 0;
-	flg = 0;          //使用フラグ
-	x = 0;
-	y = 0;          //座標ｘ.ｙ
-	speed = 0;          //移動速度
 }
 void MovePlayer::PlayerControl(int a, int b)
 {
 
-	if (flg == TRUE) {
-		if (applegame.getNowKey() & PAD_INPUT_RIGHT)x += speed;
-		if (applegame.getNowKey() & PAD_INPUT_LEFT)x -= speed;
+	if (p_flg == TRUE) {
+		if (applegame.getNowKey() & PAD_INPUT_RIGHT)p_x += p_speed;
+		if (applegame.getNowKey() & PAD_INPUT_LEFT)p_x -= p_speed;
 	}
 
 	//プレイヤーの表示
-	//上下左右移動
-	if (flg == TRUE) {
+	//左右移動
+	if (p_flg == TRUE) {
 
 		if (applegame.getNowKey() & PAD_INPUT_RIGHT) {
 			saigo = a;
-			DrawGraph(x, y, saigo, TRUE);
+			DrawGraph(p_x, p_y, saigo, TRUE);
 		}
 
 		if (applegame.getNowKey() & PAD_INPUT_LEFT) {
 			saigo = b;
-			DrawGraph(x, y, saigo, TRUE);
+			DrawGraph(p_x, p_y, saigo, TRUE);
 		}
 		else
-			DrawGraph(x, y, saigo, TRUE);
+			DrawGraph(p_x, p_y, saigo, TRUE);
 	}
 	//画面をはみ出さないようにする
-	if (x < 32)  x = 32;
-	if (x > applegame.getSCREEN_WIDTH() - 50)  x = applegame.getSCREEN_WIDTH() - 50;
+	if (p_x < 32)  p_x = 32;
+	if (p_x > applegame.getSCREEN_WIDTH() - 50)  p_x = applegame.getSCREEN_WIDTH() - 50;
 }

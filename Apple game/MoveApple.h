@@ -1,7 +1,6 @@
 #pragma once
-#pragma once
-#pragma once
-class Move {
+#include"BaseAP.h"
+class MoveApple : public BaseAP {
 private:
 	int SCREEN_HEIGHT = 480;
 
@@ -10,12 +9,10 @@ private:
 	//int g_YellowApple;//ƒLƒƒƒ‰‰æ‘œ•Ï”
 	//int g_PoisonApple;//ƒLƒƒƒ‰‰æ‘œ•Ï”
 
-	int ENEMY_MAX = 10;
-
 public:
 	Move();
 	void EnemyControl();
 	int CreateEnemy();
 	void Init();
 };
-extern Move move;
+extern MoveApple moveapple;
