@@ -28,7 +28,7 @@ public:
 	};
 	const static int APPLE_MAX = 10;
 	struct Apple g_Apple[APPLE_MAX];
-	struct Apple g_Apple00 { TRUE, 0, 0, 0, -50, 63, 120, 0, 1 };
+	struct Apple g_Apple00 { FALSE, 0, 0, 0, -50, 63, 120, 0, 1 };
 	//struct Apple g_AppleCn { TRUE, 4, 0, 0, -50, 18, 18, 0, 1 };
 
 	void AppleInit();

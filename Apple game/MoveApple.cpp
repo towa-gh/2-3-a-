@@ -31,7 +31,7 @@ void MoveApple::AppleControl() {
 			//if (p_flg == FALSE)continue;
 
 			//‰æ–Ê‚ð‚Í‚Ýo‚µ‚½‚çÁ‹Ž
-			if (g_Apple[i].y > applegame.getSCREEN_HEIGHT() + g_Apple[i].h)g_Apple[i].flg = TRUE;
+			if (g_Apple[i].y - 50 > applegame.getSCREEN_HEIGHT())g_Apple[i].flg = TRUE;
 			if (hitbox.HitBoxPlayer(&g_Apple[i]) == TRUE) {
 				p_flg = FALSE;
 				g_Apple[i].flg = TRUE;

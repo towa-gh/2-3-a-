@@ -18,9 +18,9 @@ int Create::CreateEnemy() {
 			g_Apple[i].x = GetRand(6) * 70 + 40;
 			g_Apple[i].speed = g_Apple[i].type * 2;
 			//¬Œ÷
-			return TRUE;
+			return FALSE;
 		}
 	}
 	//¸”s
-	return FALSE;
+	return TRUE;
 }
