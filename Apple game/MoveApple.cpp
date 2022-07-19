@@ -26,9 +26,9 @@ void MoveApple::AppleControl() {
 		if (g_Apple[i].flg == FALSE) {
 
 			//“G‚Ì•\Ž¦
-			DrawRotaGraph(150, g_Apple[i].y, 1.0f, 0, applegame.getg_Appleimage()/*g_Apple[i].img*/, TRUE, FALSE);
+			DrawRotaGraph(150, g_Apple[i].y, 0.7f, 0, applegame.getg_Appleimage()/*g_Apple[i].img*/, TRUE, FALSE);
 
-			//if (g_Player.flg == FALSE)continue;
+			//if (p_flg == FALSE)continue;
 
 			//‰æ–Ê‚ð‚Í‚Ýo‚µ‚½‚çÁ‹Ž
 			if (g_Apple[i].y > applegame.getSCREEN_HEIGHT() + g_Apple[i].h)g_Apple[i].flg = TRUE;

@@ -10,7 +10,7 @@ MovePlayer::MovePlayer() {
 }
 void MovePlayer::PlayerControl(int a, int b)
 {
-
+	DrawGraph(p_x, p_y, a, TRUE);
 	if (p_flg == TRUE) {
 		if (applegame.getNowKey() & PAD_INPUT_RIGHT)p_x += p_speed;
 		if (applegame.getNowKey() & PAD_INPUT_LEFT)p_x -= p_speed;
@@ -33,6 +33,6 @@ void MovePlayer::PlayerControl(int a, int b)
 			DrawGraph(p_x, p_y, saigo, TRUE);
 	}
 	//âÊñ ÇÇÕÇ›èoÇ≥Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
-	if (p_x < 32)  p_x = 32;
-	if (p_x > applegame.getSCREEN_WIDTH() - 50)  p_x = applegame.getSCREEN_WIDTH() - 50;
+	if (p_x < 0)  p_x = 0;
+	if (p_x > applegame.getSCREEN_WIDTH() - 90)  p_x = applegame.getSCREEN_WIDTH() - 90;
 }

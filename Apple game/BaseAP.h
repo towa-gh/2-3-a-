@@ -16,16 +16,8 @@ public:
 	int p_count;//タイミング用
 	int p_speed;//移動速度
 	BaseAP();
-	void PlayerInit() {
-		p_flg = TRUE;
-		p_x = PLAYER_POS_X;
-		p_y = PLAYER_POS_Y;
-		p_w = PLAYER_WIDTH;
-		p_h = PLAYER_HEIGHT;
-		p_angle = 0.0;
-		p_count = 0;
-		p_speed = PLAYER_SPEED;
-	}
+	void PlayerInit();
+
 	struct Apple {
 		int flg;//使用タイミング
 		int type;//タイプ
@@ -37,13 +29,9 @@ public:
 	const static int APPLE_MAX = 10;
 	struct Apple g_Apple[APPLE_MAX];
 	struct Apple g_Apple00 { TRUE, 0, 0, 0, -50, 63, 120, 0, 1 };
-	struct Apple g_AppleCn { TRUE, 4, 0, 0, -50, 18, 18, 0, 1 };
+	//struct Apple g_AppleCn { TRUE, 4, 0, 0, -50, 18, 18, 0, 1 };
 
-	void AppleInit() {
-		for (int i = 0; i < APPLE_MAX; i++) {
-			g_Apple[i].flg = FALSE;
-		}
-	}
+	void AppleInit();
 };
 
 extern BaseAP baseap;

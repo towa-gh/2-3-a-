@@ -60,7 +60,7 @@ int LoadImages();
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow) {
 
-	SetMainWindowText("Drive&Avoid");//タイトルを設定
+	SetMainWindowText("AppleGame");//タイトルを設定
 	ChangeWindowMode(TRUE);//ウィンドウモードで起動
 	if (DxLib_Init() == -1)return -1;//DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);//描画先画面を裏にする
