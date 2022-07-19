@@ -30,6 +30,9 @@ int g_EnemyCount1, g_EnemyCount2, g_EnemyCount3;//敵カウント
 int g_Appleimage;//キャラ画像変数
 int g_Player, g_PlayerRight, g_PlayerLeft;          //キャラ画像変数
 int g_StageImage;
+int g_StartTime; //スタート時間
+
+const  int TIMELIMIT = 15000;
 
 /***********************************************
  *定数を宣言
@@ -112,6 +115,9 @@ void GameInit(void) {
 
 	//ゲームメイン処理へ
 	g_GameState = 1;
+
+	//現在経過時間を得る
+	g_StartTime = GetNowCount();
 }
 /***********************************************
  *ゲームメイン
@@ -119,6 +125,26 @@ void GameInit(void) {
 void GameMain(void) {
 	moveplayer.PlayerControl(g_PlayerRight, g_PlayerLeft);
 	moveapple.AppleControl();
+
+	//計測時間を過ぎたらゲームオーバー
+	int Time = TIMELIMIT * 2 - (GetNowCount() - g_StartTime);
+
+	if (Time <= 0) {
+		//g_GameState = GAME_OVER;
+		Time = 0;
+	}
+
+	//スコア等表示領域
+	DrawBox(500, 0, 640, 480, 0x009900, TRUE);
+
+	SetFontSize(20);
+	DrawString(520, 10, "TIME：", 0xffffff, 0);
+
+	SetFontSize(20);
+	DrawFormatString(580, 10, 0xffffff, "%3d", Time / 1000);
+
+	SetFontSize(16);
+	DrawString(20, 20, "GAME MEIN", 0xffffff, 0);
 }
 
 

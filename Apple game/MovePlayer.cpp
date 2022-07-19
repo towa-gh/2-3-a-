@@ -86,5 +86,5 @@ void MovePlayer::PlayerControl(int a, int b)
 	}
 	//âÊñ ÇÇÕÇ›èoÇ≥Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
 	if (p_x < 0)  p_x = 0;
-	if (p_x > applegame.getSCREEN_WIDTH() - 90)  p_x = applegame.getSCREEN_WIDTH() - 90;
+	if (p_x > applegame.getSCREEN_WIDTH() - 230)  p_x = applegame.getSCREEN_WIDTH() - 230;
 }
