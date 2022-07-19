@@ -2,7 +2,6 @@
  ** 　第5章　ミニゲームをつくる(2)
  **　　　　　　　レース＆避けゲー
  ***********************************************/
-
 #include "DxLib.h"
 #include<stdio.h>
 #define _USE_MATH_DEFINES
@@ -10,6 +9,7 @@
 #include"BaseAP.h"
 #include"Hitbox.h"
 #include"MovePlayer.h"
+#include"MoveApple.h"
 #define RANKING_DATA 5
  /***********************************************
   *変数宣言
@@ -27,7 +27,7 @@ int g_WaitTime = 0;//待ち時間
 int g_EndImage;
 int g_Mileage;//走行距離
 int g_EnemyCount1, g_EnemyCount2, g_EnemyCount3;//敵カウント
-int g_Apple[3];//キャラ画像変数
+int g_Appleimage;//キャラ画像変数
 int g_Player, g_PlayerRight, g_PlayerLeft;          //キャラ画像変数
 int g_StageImage;
 
@@ -52,8 +52,7 @@ struct	RankingData		g_Ranking[10];
 
 void GameInit(void);//ゲーム初期化処理
 void GameMain(void);//ゲームメイン処理
-int LoadImages();//画像読み込み
-
+int LoadImages();
 /***********************************************
  *プログラムの開始
  ***********************************************/
@@ -109,7 +108,7 @@ void GameInit(void) {
 	baseap.PlayerInit();
 
 	//エネミーの初期設定
-
+	baseap.AppleInit();
 
 	//ゲームメイン処理へ
 	g_GameState = 1;
@@ -119,6 +118,7 @@ void GameInit(void) {
 ***********************************************/
 void GameMain(void) {
 	moveplayer.PlayerControl(g_PlayerRight, g_PlayerLeft);
+	moveapple.AppleControl();
 }
 
 
@@ -128,9 +128,9 @@ void GameMain(void) {
 
 int LoadImages() {
 	//敵
-	if ((g_Apple[0] = LoadGraph("images/Apple.png")) == -1)return-1;
-	if ((g_Apple[1] = LoadGraph("images/GreenApple1.png")) == -1)return-1;
-	if ((g_Apple[2] = LoadGraph("images/YellowApple1.png")) == -1)return-1;
+	if ((g_Appleimage = LoadGraph("images/apple.png")) == -1)return-1;
+	//if ((g_Appleimage[1] = LoadGraph("images/GreenApple1.png")) == -1)return-1;
+	//if ((g_Appleimage[2] = LoadGraph("images/YellowApple1.png")) == -1)return-1;
 	//if ((g_Apple[4] = LoadGraph("images/chapter5/Apple.bmp")) == -1)return-1;
 
 	//ステージ背景
@@ -142,6 +142,13 @@ int LoadImages() {
 
 	return 0;
 }
+
+int AppleGame::getg_Appleimage() {
+	return g_Appleimage;
+}
+int AppleGame::getMileage() {
+	return g_Mileage;
+}
 int AppleGame::getNowKey() {
 	return g_NowKey;
 }
@@ -150,9 +157,6 @@ int AppleGame::getSCREEN_WIDTH() {
 }
 int AppleGame::getSCREEN_HEIGHT() {
 	return SCREEN_HEIGHT;
-}
-int AppleGame::getg_Player() {
-	return g_Player;
 }
 int AppleGame::getg_PlayerLeft(int a) {
 	return g_PlayerLeft;

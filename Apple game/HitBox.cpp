@@ -6,7 +6,7 @@
  * 引数：PLAYER ポインタ
  * 戻り値：TRUE:当たり　FALSE:なし
 ***********************************************/
-
+HitBox hitbox;
 int HitBox::HitBoxPlayer(Apple* a) {
 	//x,yは中心座標とする
 	int sx1 = p_x - (p_w / 2);

@@ -14,8 +14,8 @@ int Create::CreateEnemy() {
 		if (g_Apple[i].flg == FALSE) {
 			g_Apple[i] = g_Apple00;
 			g_Apple[i].type = GetRand(2);
-			g_Apple[i].img = apple.GetApple();//[g_enemy[i].type];
-			g_Apple[i].x = GetRand(4) * 105 + 40;
+			g_Apple[i].img = applegame.getg_Appleimage();//[g_enemy[i].type];
+			g_Apple[i].x = GetRand(6) * 70 + 40;
 			g_Apple[i].speed = g_Apple[i].type * 2;
 			//ê¨å˜
 			return TRUE;

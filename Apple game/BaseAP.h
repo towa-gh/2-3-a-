@@ -34,8 +34,8 @@ public:
 		int speed;//移動速度
 		int point;//スコア加算
 	};
-	int APPLE_MAX = 10;
-	static Apple g_Apple[10];
+	const static int APPLE_MAX = 10;
+	struct Apple g_Apple[APPLE_MAX];
 	struct Apple g_Apple00 { TRUE, 0, 0, 0, -50, 63, 120, 0, 1 };
 	struct Apple g_AppleCn { TRUE, 4, 0, 0, -50, 18, 18, 0, 1 };
 
