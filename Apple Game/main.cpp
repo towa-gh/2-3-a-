@@ -164,7 +164,7 @@ int LoadImages() {
 
 	//ƒvƒŒƒCƒ„[
 	if ((g_PlayerRight = LoadGraph("images/Right.png")) == -1)return -1;
-	if ((g_PlayerLeft = LoadGraph("images/Left.bmp")) == -1)return -1;
+	if ((g_PlayerLeft = LoadGraph("images/Left.png")) == -1)return -1;
 
 	return 0;
 }
