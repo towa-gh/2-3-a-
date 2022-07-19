@@ -31,6 +31,9 @@ int g_Appleimage;//キャラ画像変数
 int g_Player, g_PlayerRight, g_PlayerLeft;          //キャラ画像変数
 int g_StageImage;
 int g_StartTime; //スタート時間
+int Ringo[4]; //リンゴ別の画像変数
+int RingoScore; //リンゴ別のスコア
+int Score; //リンゴの総合スコア
 
 
 const  int TIMELIMIT = 15000;
@@ -139,13 +142,31 @@ void GameMain(void) {
 	DrawBox(500, 0, 640, 480, 0x009900, TRUE);
 
 	SetFontSize(20);
-	DrawString(520, 10, "TIME：", 0xffffff, 0);
+	DrawString(525, 20, "TIME：", 0xffffff, 0);
 
 	SetFontSize(20);
-	DrawFormatString(580, 10, 0xffffff, "%3d", Time / 1000);
+	DrawFormatString(580, 20, 0xffffff, "%3d", Time / 1000);
 
 	SetFontSize(16);
 	DrawString(20, 20, "GAME MEIN", 0xffffff, 0);
+
+	DrawRotaGraph(540, 85, 0.3f, 0, Ringo[0], TRUE, FALSE);  //赤リンゴ
+
+	DrawRotaGraph(540, 122, 0.3f, 0, Ringo[1], TRUE, FALSE);  //緑リンゴ
+	
+	DrawRotaGraph(540, 162, 0.3f, 0, Ringo[2], TRUE, FALSE);  //黄リンゴ
+
+	DrawRotaGraph(540, 202, 0.3f, 0, Ringo[3], TRUE, FALSE);  //毒リンゴ
+
+	SetFontSize(20);
+	DrawString(515, 50, "SCORE：", 0xffffff, 0);
+	DrawFormatString(590, 50, 0xFFFFFF, "%04d", Score);
+
+
+	DrawFormatString(575, 75, 0xFFFFFF, "%04d", RingoScore);
+	DrawFormatString(575, 114, 0xFFFFFF, "%04d", RingoScore);
+	DrawFormatString(575, 154, 0xFFFFFF, "%04d", RingoScore);
+	DrawFormatString(575, 194, 0xFFFFFF, "%04d", RingoScore);
 }
 
 
@@ -159,6 +180,12 @@ int LoadImages() {
 	//if ((g_Appleimage[1] = LoadGraph("images/GreenApple1.png")) == -1)return-1;
 	//if ((g_Appleimage[2] = LoadGraph("images/YellowApple1.png")) == -1)return-1;
 	//if ((g_Apple[4] = LoadGraph("images/chapter5/Apple.bmp")) == -1)return-1;
+
+	//リンゴ
+	Ringo[0] = LoadGraph("images/apple.png"); //赤リンゴ
+	Ringo[1] = LoadGraph("images/GreenApple1.png"); //緑リンゴ
+	Ringo[2] = LoadGraph("images/YellowApple1.png"); //黄リンゴ
+	Ringo[3] = LoadGraph("images/PoisonApple.png"); //毒リンゴ
 
 	//ステージ背景
 	if ((g_StageImage = LoadGraph("images/bg_natural_mori.jpg")) == -1) return -1;
