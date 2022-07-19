@@ -5,6 +5,7 @@
 #include "DxLib.h"
 #include<stdio.h>
 #define _USE_MATH_DEFINES
+#include<math.h>
 #include"main.h"
 #include"BaseAP.h"
 #include"Hitbox.h"
@@ -30,6 +31,10 @@ int g_EnemyCount1, g_EnemyCount2, g_EnemyCount3;//敵カウント
 int g_Appleimage;//キャラ画像変数
 int g_Player, g_PlayerRight, g_PlayerLeft;          //キャラ画像変数
 int g_StageImage;
+int g_PosY;            //スクロール時のY座標
+int g_HelpImage;
+//int g_Apple;
+int g_Menu, g_AppleMenu;//メニュー画像変数
 
 /***********************************************
  *定数を宣言
@@ -53,6 +58,10 @@ struct	RankingData		g_Ranking[10];
 void GameInit(void);//ゲーム初期化処理
 void GameMain(void);//ゲームメイン処理
 int LoadImages();
+void DrawEnd();	//ゲームエンド処理
+void DrawGameTitle();//タイトル描画処理
+void DrawHelp();
+
 /***********************************************
  *プログラムの開始
  ***********************************************/
@@ -76,17 +85,51 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		switch (g_GameState) {
 		case 0:
-			GameInit();		//ゲーム初期処理
+			DrawGameTitle();	//ゲームタイトル描画処理
 			break;
 		case 1:
+			GameInit();		//ゲーム初期処理
+			break;
+
+		case 3:
+			DrawHelp();		//ゲームヘルプ描画処理
+			break;
+		case 4:
+			DrawEnd();		//ゲームエンド描画処理
+			break;
+		case 5:
 			GameMain();     //ゲームメイン処理
 			break;
+
+
 		}
 		ScreenFlip();     //裏画面の内容を表画面に反映
 	}
 	DxLib_End();
 
 	return 0;
+}
+
+/***********************************************
+ *ゲームタイトル表示(メニュー画面)
+ ***********************************************/
+void DrawGameTitle(void) {
+	static int MenuNo = 0;
+	//メニューカーソル移動処理
+	if (g_KeyFlg & PAD_INPUT_DOWN) {
+		if (++MenuNo > 3)MenuNo = 0;
+	}
+	if (g_KeyFlg & PAD_INPUT_UP) {
+		if (--MenuNo < 0)MenuNo = 3;
+	}
+	//Zキーでメニュー選択
+	if (g_KeyFlg & PAD_INPUT_A)g_GameState = MenuNo + 1;
+	//タイトル画像表示
+	DrawGraph(0, 0, g_TitleImage, FALSE);
+	//メニュー
+	DrawGraph(120, 200, g_Menu, TRUE);
+	//メニューカーソル
+	DrawRotaGraph(125, 220 + MenuNo * 35, 0.7f, M_PI / 50, g_Appleimage, TRUE);
 }
 /***********************************************
  *ゲーム初期処理
@@ -111,7 +154,7 @@ void GameInit(void) {
 	baseap.AppleInit();
 
 	//ゲームメイン処理へ
-	g_GameState = 1;
+	g_GameState = 5;//1
 }
 /***********************************************
  *ゲームメイン
@@ -127,6 +170,9 @@ void GameMain(void) {
 ***********************************************/
 
 int LoadImages() {
+
+	//タイトル
+	if ((g_TitleImage = LoadGraph("images/Title1.png")) == -1)return -1;
 	//敵
 	if ((g_Appleimage = LoadGraph("images/apple.png")) == -1)return-1;
 	//if ((g_Appleimage[1] = LoadGraph("images/GreenApple1.png")) == -1)return-1;
@@ -134,11 +180,22 @@ int LoadImages() {
 	//if ((g_Apple[4] = LoadGraph("images/chapter5/Apple.bmp")) == -1)return-1;
 
 	//ステージ背景
-	if ((g_StageImage = LoadGraph("images/bg_natural_mori.jpg")) == -1) return -1;
+	if ((g_StageImage = LoadGraph("images/mori.png")) == -1) return -1;
+
+	//エンディング
+	if ((g_EndImage = LoadGraph("images/mori.png")) == -1) return -1;
 
 	//プレイヤー
 	if ((g_PlayerRight = LoadGraph("images/Right.png")) == -1)return -1;
 	if ((g_PlayerLeft = LoadGraph("images/Left.bmp")) == -1)return -1;
+
+	//ヘルプ
+	if ((g_HelpImage = LoadGraph("images/Gamehelp.png")) == -1)return -1;
+
+	//メニュー
+	if ((g_Menu = LoadGraph("images/menu2.png")) == -1) return -1;
+	if ((g_AppleMenu = LoadGraph("images/Red.png")) == -1) return-1;
+
 
 	return 0;
 }
@@ -165,3 +222,58 @@ int AppleGame::getg_PlayerRight(int b) {
 	return g_PlayerRight;
 }
 
+void DrawEnd(void) {
+
+
+	//エンド表示
+	DrawGraph(0, 0, g_EndImage, FALSE);
+
+	SetFontSize(24);//24
+	DrawString(150, 20, "Thank you for Playing!!!", 0xffff, 0);
+
+	//クレジット表示
+	if (++g_WaitTime < 650) g_PosY = 300 - g_WaitTime / 2;
+	DrawString(110, 170 + g_PosY, "背景画像　　森のイラスト　いらすとや", 0x000000);
+	DrawString(110, 200 + g_PosY, "リンゴの画像 いらすとや　　", 0x000000);
+	DrawString(110, 230 + g_PosY, "プレイヤー画像　　ピクトグラム", 0x000000);
+	DrawString(110, 260 + g_PosY, "BGM　DOVA-SYNDROME", 0x000000);
+	/*DrawString(110, 290 + g_PosY, "　　　　　国際　太郎", 0x000000);
+	DrawString(110, 310 + g_PosY, "素材利用", 0x000000);
+	DrawString(110, 340 + g_PosY, "BGM　　　　魔王伝説", 0x000000);
+	DrawString(110, 365 + g_PosY, "SE　　　　　煉獄庭園", 0x000000);*/
+
+
+	//スペースキーでメニューに戻る
+	if (g_KeyFlg & PAD_INPUT_M) g_GameState = 0;
+
+
+	//DrawString(20, 450, "---- スペースキーを押してタイトルへ戻る ----", 0xffffff, 0);
+
+}
+
+///****************************************/
+//ゲームヘルプ描画処理
+//****************************************/
+void DrawHelp(void) {
+
+	//スペースキーでメニューに戻る
+	if (g_KeyFlg & PAD_INPUT_M) g_GameState = 0;
+
+	//タイトル画像表示
+	DrawGraph(0, 0, g_HelpImage, FALSE);
+	SetFontSize(20);
+	/*DrawString(280, 120, "操作説明", 0xf, 0);*/
+
+	DrawString(190, 160, "左スティックを倒すと左に移動", 0xf, 0);
+	DrawString(190, 180, "右スティックを倒すと右に移動", 0xf, 0);
+	DrawString(190, 200, "STRATボタンを押すとポーズ画面", 0xf, 0);
+	/*DrawString(190, 220, "なるとゲームオーバーです", 0xf, 0);*/
+	/*DrawString(20, 250, "アイテム一覧", 0xffffff, 0);
+	DrawGraph(20, 260, g_Item[0], TRUE);
+	DrawString(20, 315, "取ると燃料が回復するよ。", 0xffffff, 0);
+	DrawGraph(20, 335, g_Item[1], TRUE);
+	DrawString(20, 385, "ダメージを受けている時に取ると耐久回復", 0xffffff, 0);
+	DrawString(20, 405, "耐久が減っていなかったら燃料が少し回復するよ。", 0xffffff, 0);*/
+	DrawString(20, 450, "---- スペースキーを押してタイトルへ戻る ----", 0xffffff, 0);
+
+}
