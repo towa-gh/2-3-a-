@@ -135,7 +135,17 @@ void GameMain(void) {
 		Time = 0;
 	}
 
-	DrawFormatString(550, 20, 0xffffff, "%d", Time / 1000);
+	//スコア等表示領域
+	DrawBox(500, 0, 640, 480, 0x009900, TRUE);
+
+	SetFontSize(20);
+	DrawString(520, 10, "TIME：", 0xffffff, 0);
+
+	SetFontSize(20);
+	DrawFormatString(580, 10, 0xffffff, "%3d", Time / 1000);
+
+	SetFontSize(16);
+	DrawString(20, 20, "GAME MEIN", 0xffffff, 0);
 }
 
 
