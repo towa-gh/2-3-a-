@@ -6,14 +6,66 @@
 
 MovePlayer moveplayer;
 MovePlayer::MovePlayer() {
+
 	saigo = 0;
+
+	playerX = 320.f - 16; // X座標
+
+	//playerY = 240.0f - 16; // Y座標
+
+	kasoku = 0.43f; // 加速
+
+	//speed = 0;  // 速度
+
+	moobX = 0.0f; // 移動量	  
+
+	moob; // 移動範囲
+
+	angle = 0;  // 範囲
+
+	cosT[360];  // 円範囲
 }
 void MovePlayer::PlayerControl(int a, int b)
 {
-	DrawGraph(p_x, p_y, a, TRUE);
+
+	//移動範囲
+	for (moob = 0; moob < 360; moob++) {
+
+		//円周率
+		cosT[moob] = (float)cos(moob * M_PI / 180);  //３６０度から１８０度の間の移動変更
+	}
+
+	angle = -1; //とりあえず角度を-1にしておく
+
+
+	//左右移動
 	if (p_flg == TRUE) {
-		if (applegame.getNowKey() & PAD_INPUT_RIGHT)p_x += p_speed;
-		if (applegame.getNowKey() & PAD_INPUT_LEFT)p_x -= p_speed;
+
+
+		//左移動
+		if (applegame.getNowKey() & PAD_INPUT_LEFT) angle = 180;
+
+
+		//右移動
+		if (applegame.getNowKey() & PAD_INPUT_RIGHT) angle = 0;
+
+		//移動判断 angleの値が変わっていたら移動量を変更する
+		if (angle != -1) {
+
+			moobX += cosT[angle] * kasoku;
+
+		}
+		else /*if (angle == -1)*/ {   //angleの値が変わっていたら移動量を変更する
+
+			moobX -= cosT[angle - 1] * kasoku;
+
+
+		}
+
+		p_x += moobX;
+
+
+
 	}
 
 	//プレイヤーの表示
