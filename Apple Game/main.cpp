@@ -172,9 +172,9 @@ void GameMain(void) {
 int LoadImages() {
 
 	//タイトル
-	if ((g_TitleImage = LoadGraph("images/Title1.png")) == -1)return -1;
+	if ((g_TitleImage = LoadGraph("images/Title.png")) == -1)return -1;
 	//敵
-	if ((g_Appleimage = LoadGraph("images/apple.png")) == -1)return-1;
+	if ((g_Appleimage = LoadGraph("images/Apple.png")) == -1)return-1;
 	//if ((g_Appleimage[1] = LoadGraph("images/GreenApple1.png")) == -1)return-1;
 	//if ((g_Appleimage[2] = LoadGraph("images/YellowApple1.png")) == -1)return-1;
 	//if ((g_Apple[4] = LoadGraph("images/chapter5/Apple.bmp")) == -1)return-1;
@@ -187,14 +187,14 @@ int LoadImages() {
 
 	//プレイヤー
 	if ((g_PlayerRight = LoadGraph("images/Right.png")) == -1)return -1;
-	if ((g_PlayerLeft = LoadGraph("images/Left.bmp")) == -1)return -1;
+	if ((g_PlayerLeft = LoadGraph("images/Left.png")) == -1)return -1;
 
 	//ヘルプ
 	if ((g_HelpImage = LoadGraph("images/Gamehelp.png")) == -1)return -1;
 
 	//メニュー
-	if ((g_Menu = LoadGraph("images/menu2.png")) == -1) return -1;
-	if ((g_AppleMenu = LoadGraph("images/Red.png")) == -1) return-1;
+	if ((g_Menu = LoadGraph("images/menu.png")) == -1) return -1;
+	if ((g_AppleMenu = LoadGraph("images/Apple.png")) == -1) return-1;
 
 
 	return 0;
