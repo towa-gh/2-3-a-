@@ -229,7 +229,7 @@ void Pause() {
 	if (g_KeyFlg & PAD_INPUT_M)g_GameState = 1;
 
 	SetFontSize(50);
-	DrawString(170, 200, "ポーズ", 0xffffff, 0);
+	DrawString(150, 200, "ポーーズ", 0xffffff, 0);
 
 	DrawBox(500, 0, 640, 480, 0x009900, TRUE);
 
