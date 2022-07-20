@@ -210,6 +210,8 @@ void GameMain(void) {
 	DrawFormatString(575, 85, 0xFFFFFF, "%04d", RingoScore[1]); //緑リンゴのスコア
 	DrawFormatString(575, 122, 0xFFFFFF, "%04d", RingoScore[2]); //黄リンゴのスコア
 	DrawFormatString(575, 162, 0xFFFFFF, "%04d", RingoScore[3]); //毒リンゴのスコア
+
+
 }
 
 /***********************************************
