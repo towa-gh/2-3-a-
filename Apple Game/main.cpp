@@ -121,7 +121,7 @@ void DrawGameTitle(void) {
 	if (g_KeyFlg & PAD_INPUT_UP) {
 		if (--MenuNo < 0)MenuNo = 3;
 	}
-	//Zキーでメニュー選択
+	//Aボタンでメニュー選択
 	if (g_KeyFlg & PAD_INPUT_A)g_GameState = MenuNo + 1;
 	//タイトル画像表示
 	DrawGraph(0, 0, g_TitleImage, FALSE);
@@ -174,10 +174,7 @@ int LoadImages() {
 	if ((g_TitleImage = LoadGraph("images/Title.png")) == -1)return -1;
 	//敵
 	if ((g_Appleimage = LoadGraph("images/Apple.png")) == -1)return-1;
-	//if ((g_Appleimage[1] = LoadGraph("images/GreenApple1.png")) == -1)return-1;
-	//if ((g_Appleimage[2] = LoadGraph("images/YellowApple1.png")) == -1)return-1;
-	//if ((g_Apple[4] = LoadGraph("images/chapter5/Apple.bmp")) == -1)return-1;
-
+	
 	//ステージ背景
 	if ((g_StageImage = LoadGraph("images/mori.png")) == -1) return -1;
 
@@ -232,7 +229,7 @@ void DrawEnd(void) {
 
 	//クレジット表示
 	SetFontSize(15);//24
-	if (++g_WaitTime < 710) g_PosY = 250 - g_WaitTime / 2;
+	if (++g_WaitTime < 710) g_PosY = 200 - g_WaitTime / 2;
 	DrawString(70, 170 + g_PosY, "背景画像　　森のイラスト　いらすとや", 0x000000);
 	DrawString(70, 200 + g_PosY, "リンゴの画像 いらすとや　　", 0x000000);
 	DrawString(70, 230 + g_PosY, "プレイヤー画像　　ピクトグラム", 0x000000);
@@ -265,11 +262,11 @@ void DrawHelp(void) {
 	SetFontSize(20);
 	
 
-	DrawString(190, 160, "左スティックを倒すと左に移動", 0xf, 0);
-	DrawString(190, 180, "右スティックを倒すと右に移動", 0xf, 0);
-	DrawString(190, 200, "右スティックボタンを押し込むとポーズ画面", 0xf, 0);
-	DrawString(190, 220, "Aボタンを押すと決定", 0xf, 0);
-	DrawString(190, 240, "Bボタンを押すと決定", 0xf, 0);
+	DrawString(190, 160, "左スティックを倒すと左に移動", 0xfff, 0);
+	DrawString(190, 180, "右スティックを倒すと右に移動", 0xfff, 0);
+	DrawString(190, 200, "右スティックボタンを押し込むとポーズ画面", 0xfff, 0);
+	DrawString(190, 220, "Aボタンを押すと決定", 0xfff, 0);
+	DrawString(190, 240, "Bボタンを押すと決定", 0xfff, 0);
 
 	
 	DrawString(20, 450, "---- Bを押してタイトルへ戻る ----", 0xffffff, 0);
