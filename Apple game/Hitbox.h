@@ -1,9 +1,10 @@
 #pragma once
-#include"BaseAP.h"
-class HitBox : public BaseAP{
+#include"MoveApple.h"
+#include"MovePlayer.h"
+class HitBox{
 
 public:
-	int HitBoxPlayer(Apple* a);
+	int HitBoxPlayer(Player* p, Apple* a);
 
 };
 extern HitBox hitbox;

@@ -6,7 +6,6 @@
 #include<stdio.h>
 #define _USE_MATH_DEFINES
 #include"main.h"
-#include"BaseAP.h"
 #include"Hitbox.h"
 #include"MovePlayer.h"
 #include"MoveApple.h"
@@ -15,7 +14,6 @@
   *変数宣言
   ***********************************************/
 AppleGame applegame;
-BaseAP baseap;
 
 int g_OldKey;//前回の入力キー
 int g_NowKey;//今回の入力キー
@@ -105,10 +103,10 @@ void GameInit(void) {
 	g_EnemyCount3 = 0;
 
 	//プレイヤーの初期設定
-	baseap.PlayerInit();
+	moveplayer.PlayerInit();
 
 	//エネミーの初期設定
-	baseap.AppleInit();
+	moveapple.AppleInit();
 
 	//ゲームメイン処理へ
 	g_GameState = 1;
@@ -118,7 +116,7 @@ void GameInit(void) {
 ***********************************************/
 void GameMain(void) {
 	moveplayer.PlayerControl(g_PlayerRight, g_PlayerLeft);
-	moveapple.AppleControl();
+	moveapple.AppleControl(moveplayer.getPlayer());
 }
 
 
@@ -128,7 +126,7 @@ void GameMain(void) {
 
 int LoadImages() {
 	//敵
-	if ((g_Appleimage = LoadGraph("images/apple.png")) == -1)return-1;
+	if ((g_Appleimage = LoadGraph("images/Apple.png")) == -1)return-1;
 	//if ((g_Appleimage[1] = LoadGraph("images/GreenApple1.png")) == -1)return-1;
 	//if ((g_Appleimage[2] = LoadGraph("images/YellowApple1.png")) == -1)return-1;
 	//if ((g_Apple[4] = LoadGraph("images/chapter5/Apple.bmp")) == -1)return-1;
@@ -138,7 +136,7 @@ int LoadImages() {
 
 	//プレイヤー
 	if ((g_PlayerRight = LoadGraph("images/Right.png")) == -1)return -1;
-	if ((g_PlayerLeft = LoadGraph("images/Left.bmp")) == -1)return -1;
+	if ((g_PlayerLeft = LoadGraph("images/Left.png")) == -1)return -1;
 
 	return 0;
 }

@@ -5,86 +5,76 @@
 #include"Main.h"
 
 MovePlayer moveplayer;
+void MovePlayer::PlayerInit() {
+	player.flg = TRUE;
+	player.x = 320;
+	player.y = 380;
+	player.w = 60;
+	player.h = 100;
+	player.angle = 0.0;
+	player.count = 0;
+	player.speed = 5;
+}
 MovePlayer::MovePlayer() {
-
+	PlayerInit();
 	saigo = 0;
 
-	playerX = 320.f - 16; // X座標
+	//kasoku = 0.43f; // 加速
 
-	//playerY = 240.0f - 16; // Y座標
+	////speed = 0;  // 速度
 
-	kasoku = 0.43f; // 加速
+	//moobX = 0.0f; // 移動量	  
 
-	//speed = 0;  // 速度
+	//angle = 0;  // 範囲
 
-	moobX = 0.0f; // 移動量	  
-
-	moob; // 移動範囲
-
-	angle = 0;  // 範囲
-
-	cosT[360];  // 円範囲
+	//cosT[360] = 0;  // 円範囲
 }
+
 void MovePlayer::PlayerControl(int a, int b)
 {
+	//DrawGraph(player.x, player.y, a, TRUE);
 
 	//移動範囲
-	for (moob = 0; moob < 360; moob++) {
+	//for (moob = 0; moob < 360; moob++) {
+	//	//円周率
+	//	cosT[moob] = (float)cos(moob * M_PI / 180);  //３６０度から１８０度の間の移動変更
+	//}
 
-		//円周率
-		cosT[moob] = (float)cos(moob * M_PI / 180);  //３６０度から１８０度の間の移動変更
-	}
-
-	angle = -1; //とりあえず角度を-1にしておく
-
+	//angle = -1; //とりあえず角度を-1にしておく
 
 	//左右移動
-	if (p_flg == TRUE) {
-
-
+	if (player.flg == TRUE) {
+		saigo = a;
 		//左移動
-		if (applegame.getNowKey() & PAD_INPUT_LEFT) angle = 180;
-
-
+		if (applegame.getNowKey() & PAD_INPUT_LEFT) {
+			//angle = 180;
+			saigo = b;
+			DrawGraph(player.x, player.y, saigo, TRUE);
+			player.x -= player.speed;
+		}
 		//右移動
-		if (applegame.getNowKey() & PAD_INPUT_RIGHT) angle = 0;
-
-		//移動判断 angleの値が変わっていたら移動量を変更する
-		if (angle != -1) {
-
-			moobX += cosT[angle] * kasoku;
-
+		if (applegame.getNowKey() & PAD_INPUT_RIGHT) {
+			//angle = 0;
+			saigo = a;
+			DrawGraph(player.x, player.y, saigo, TRUE);
+			player.x += player.speed;
 		}
-		else /*if (angle == -1)*/ {   //angleの値が変わっていたら移動量を変更する
-
-			moobX -= cosT[angle - 1] * kasoku;
-
-
-		}
-
-		p_x += moobX;
-
-
-
+		else
+			DrawGraph(player.x, player.y, saigo, TRUE);
 	}
+	//	if (angle != -1) {//移動判断 angleの値が変わっていたら移動量を変更する
+	//		moobX += cosT[angle + 1] * kasoku;
+	//	}
+	//	if (angle == -1) {   //angleの値が変わっていたら移動量を変更する
+	//		moobX -= cosT[angle - 1] * kasoku;
+	//	}
+	//	player.x += moobX;
+	//}
 
 	//プレイヤーの表示
 	//左右移動
-	if (p_flg == TRUE) {
 
-		if (applegame.getNowKey() & PAD_INPUT_RIGHT) {
-			saigo = a;
-			DrawGraph(p_x, p_y, saigo, TRUE);
-		}
-
-		if (applegame.getNowKey() & PAD_INPUT_LEFT) {
-			saigo = b;
-			DrawGraph(p_x, p_y, saigo, TRUE);
-		}
-		else
-			DrawGraph(p_x, p_y, saigo, TRUE);
-	}
 	//画面をはみ出さないようにする
-	if (p_x < 0)  p_x = 0;
-	if (p_x > applegame.getSCREEN_WIDTH() - 90)  p_x = applegame.getSCREEN_WIDTH() - 90;
+	if (player.x < -30)  player.x = -30;
+	if (player.x > applegame.getSCREEN_WIDTH() - 90)  player.x = applegame.getSCREEN_WIDTH() - 90;
 }
