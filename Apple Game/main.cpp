@@ -34,6 +34,7 @@ int g_StartTime; //スタート時間
 int Ringo[4]; //リンゴ別の画像変数
 int RingoScore[4]; //リンゴ別のスコア
 int Score; //リンゴの総合スコア
+int Time; //時間
 
 
 const  int TIMELIMIT = 15000;
@@ -60,6 +61,7 @@ struct	RankingData		g_Ranking[10];
 void GameInit(void);//ゲーム初期化処理
 void GameMain(void);//ゲームメイン処理
 int LoadImages();
+void Pause(void); //ポーズ処理
 /***********************************************
  *プログラムの開始
  ***********************************************/
@@ -87,6 +89,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			break;
 		case 1:
 			GameMain();     //ゲームメイン処理
+			break;
+
+		case 2:
+			Pause();
 			break;
 		}
 		ScreenFlip();     //裏画面の内容を表画面に反映
@@ -118,10 +124,49 @@ void GameInit(void) {
 	baseap.AppleInit();
 
 	//ゲームメイン処理へ
-	g_GameState = 1;
+	if (g_NowKey & PAD_INPUT_RIGHT || g_NowKey & PAD_INPUT_LEFT)g_GameState = 1;
 
 	//現在経過時間を得る
 	g_StartTime = GetNowCount();
+
+	//制限時間の初期設定
+	 Time = TIMELIMIT * 2 - (GetNowCount() - g_StartTime);
+
+	SetFontSize(43);
+	DrawString(00, 200, "左右に動かしてください", 0xffffff, 0);
+
+	DrawBox(500, 0, 640, 480, 0x009900, TRUE);
+
+	SetFontSize(20);
+	DrawString(525, 20, "TIME：", 0xffffff, 0);
+
+	SetFontSize(20);
+	DrawFormatString(580, 20, 0xffffff, "%3d", Time / 1000);
+
+	SetFontSize(16);
+	DrawString(20, 20, "GAME MEIN", 0xffffff, 0);
+
+	DrawRotaGraph(540, 60, 0.3f, 0, Ringo[0], TRUE, FALSE);
+
+
+	DrawRotaGraph(540, 95, 0.3f, 0, Ringo[1], TRUE, FALSE);
+
+
+	DrawRotaGraph(540, 132, 0.3f, 0, Ringo[2], TRUE, FALSE);
+
+
+	DrawRotaGraph(540, 172, 0.3f, 0, Ringo[3], TRUE, FALSE);
+
+
+	SetFontSize(20);
+	DrawString(515, 202, "SCORE：", 0xffffff, 0);
+	DrawFormatString(590, 202, 0xFFFFFF, "%04d", Score);
+
+
+	DrawFormatString(575, 50, 0xFFFFFF, "%04d", RingoScore[0]);
+	DrawFormatString(575, 85, 0xFFFFFF, "%04d", RingoScore[1]);
+	DrawFormatString(575, 122, 0xFFFFFF, "%04d", RingoScore[2]);
+	DrawFormatString(575, 162, 0xFFFFFF, "%04d", RingoScore[3]);
 }
 /***********************************************
  *ゲームメイン
@@ -130,12 +175,18 @@ void GameMain(void) {
 	moveplayer.PlayerControl(g_PlayerRight, g_PlayerLeft);
 	moveapple.AppleControl();
 
-	//計測時間を過ぎたらゲームオーバー
-	int Time = TIMELIMIT * 2 - (GetNowCount() - g_StartTime);
+	//スペースキーを押したらポーズへ
+	if (g_KeyFlg & PAD_INPUT_M)g_GameState = 2;
 
-	if (Time <= 0) {
-		//g_GameState = GAME_OVER;
-		Time = 0;
+	if (g_KeyFlg == !PAD_INPUT_M) {
+
+		//計測時間を過ぎたらゲームオーバー
+		Time = TIMELIMIT * 2 - (GetNowCount() - g_StartTime);
+
+		if (Time <= 0) {
+			//g_GameState = GAME_OVER;
+			Time = 0;
+		}
 	}
 
 	//スコア等表示領域
@@ -169,6 +220,48 @@ void GameMain(void) {
 	DrawFormatString(575, 162, 0xFFFFFF, "%04d", RingoScore[3]); //毒リンゴのスコア
 }
 
+/***********************************************
+ *ポーズ
+***********************************************/
+void Pause() {
+
+	////スペースキーを押したらゲームメイン処理へ
+	if (g_KeyFlg & PAD_INPUT_M)g_GameState = 1;
+
+	SetFontSize(50);
+	DrawString(170, 200, "ポーズ", 0xffffff, 0);
+
+	DrawBox(500, 0, 640, 480, 0x009900, TRUE);
+
+	SetFontSize(20);
+	DrawString(525, 20, "TIME：", 0xffffff, 0);
+
+	SetFontSize(20);
+	DrawFormatString(580, 20, 0xffffff, "%3d", Time / 1000);
+
+	SetFontSize(16);
+	DrawString(20, 20, "GAME MEIN", 0xffffff, 0);
+
+	DrawRotaGraph(540, 60, 0.3f, 0, Ringo[0], TRUE, FALSE);
+
+	DrawRotaGraph(540, 95, 0.3f, 0, Ringo[1], TRUE, FALSE);
+
+	DrawRotaGraph(540, 132, 0.3f, 0, Ringo[2], TRUE, FALSE);
+
+	DrawRotaGraph(540, 172, 0.3f, 0, Ringo[3], TRUE, FALSE);
+
+
+	SetFontSize(20);
+	DrawString(515, 202, "SCORE：", 0xffffff, 0);
+	DrawFormatString(590, 202, 0xFFFFFF, "%04d", Score);
+
+
+	DrawFormatString(575, 50, 0xFFFFFF, "%04d", RingoScore[0]);
+	DrawFormatString(575, 85, 0xFFFFFF, "%04d", RingoScore[1]);
+	DrawFormatString(575, 122, 0xFFFFFF, "%04d", RingoScore[2]);
+	DrawFormatString(575, 162, 0xFFFFFF, "%04d", RingoScore[3]);
+
+}
 
 /***********************************************
 *画像読み込み
