@@ -29,6 +29,7 @@ int g_EnemyCount1, g_EnemyCount2, g_EnemyCount3;//敵カウント
 int g_Appleimage[10];//キャラ画像変数
 int g_Player, g_PlayerRight, g_PlayerLeft;          //キャラ画像変数
 int g_StageImage;
+int g_TitleSound;
 
 /***********************************************
  *定数を宣言
@@ -51,7 +52,9 @@ struct	RankingData		g_Ranking[10];
 
 void GameInit(void);//ゲーム初期化処理
 void GameMain(void);//ゲームメイン処理
-int LoadImages();
+int LoadImages(); //画像
+int LoadSounds(); //サウンド
+
 /***********************************************
  *プログラムの開始
  ***********************************************/
@@ -64,6 +67,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	if (DxLib_Init() == -1)return -1;//DXライブラリの初期化処理
 	SetDrawScreen(DX_SCREEN_BACK);//描画先画面を裏にする
 	if (LoadImages() == -1)return -1;//画像読み込み関数を呼び出し
+	if (LoadSounds() == -1) return -1;   //サウンド読み込み関数を呼び出し
 
 	//ゲームループ
 	while (ProcessMessage() == 0 && g_GameState != 99 && !(g_KeyFlg & PAD_INPUT_START)) {
@@ -128,7 +132,6 @@ void GameMain(void) {
 /***********************************************
 *画像読み込み
 ***********************************************/
-
 int LoadImages() {
 	//ステージ背景
 	if ((g_StageImage = LoadGraph("images/bg_natural_mori.jpg")) == -1) return -1;
@@ -138,6 +141,15 @@ int LoadImages() {
 	if ((g_PlayerLeft = LoadGraph("images/Left.png")) == -1)return -1;
 
 	return 0;
+}
+
+
+/***********************************************
+*サウンド読み込み
+***********************************************/
+int LoadSounds()
+{
+	if((g_TitleSound=LoadSoundMem("sounds/Chapter8/sounds/muci_hono_r01.mp3")) == -1)return -1;
 }
 
 int AppleGame::getg_Appleimage(int rand) {
