@@ -1,5 +1,6 @@
 #pragma once
 #include"MovePlayer.h"
+//#include"Fps.h"
 struct Apple {
 	int flg;//使用タイミング
 	int type;//タイプ

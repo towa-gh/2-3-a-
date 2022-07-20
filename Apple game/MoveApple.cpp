@@ -4,7 +4,6 @@
 #include"main.h"
 
 MoveApple moveapple;
-
 void MoveApple::AppleInit() {
 	for(int i=0;i<APPLE_MAX;i++)
 	g_Apple[i].flg = 1;
@@ -25,8 +24,8 @@ int MoveApple::CreateEnemy() {
 
 		if (g_Apple[i].flg == FALSE) {
 			g_Apple[i].flg = TRUE;
-			g_Apple[i].type = GetRand(2);
-			g_Apple[i].img = applegame.getg_Appleimage();//[g_enemy[i].type];
+			g_Apple[i].type = GetRand(9);
+			g_Apple[i].img = applegame.getg_Appleimage(g_Apple[i].type);//[g_enemy[i].type];
 			g_Apple[i].x = GetRand(6) * 70 + 40;
 			g_Apple[i].y = -50;
 			g_Apple[i].w = 60;
@@ -62,7 +61,7 @@ void MoveApple::AppleControl(Player player) {
 		if (g_Apple[i].flg == TRUE) {
 
 			//“G‚Ì•\Ž¦
-			DrawRotaGraph(g_Apple[i].x, g_Apple[i].y, 0.7f, 0, applegame.getg_Appleimage()/*g_Apple[i].img*/, TRUE, FALSE);
+			DrawRotaGraph(g_Apple[i].x, g_Apple[i].y, 0.7f, 0, g_Apple[i].img, TRUE, FALSE);
 
 			//if (p_flg == FALSE)continue;
 
@@ -74,9 +73,10 @@ void MoveApple::AppleControl(Player player) {
 			}
 		}
 	}
-
-	if (applegame.getMileage() / 5 % 50 == 0) {
-		CreateEnemy();
-	}
+	//if (fps.GetCount() == 25) {
+		if (applegame.getMileage() / 5 % 50 == 0) {
+			CreateEnemy();
+		}
+	//}
 }
 

@@ -157,6 +157,7 @@
     <ClCompile Include="MovePlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Fps.h" />
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="MoveApple.h" />

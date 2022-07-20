@@ -5,7 +5,7 @@ private:
 	const int SCREEN_WIDTH = 640;
 	const int SCREEN_HEIGHT = 480;
 public:
-	int getg_Appleimage();
+	int getg_Appleimage(int rand);
 	int getMileage();
 	int getNowKey();
 	int getg_PlayerRight(int b);

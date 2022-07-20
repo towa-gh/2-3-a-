@@ -9,12 +9,13 @@
 #include"Hitbox.h"
 #include"MovePlayer.h"
 #include"MoveApple.h"
+#include"Fps.h"
 #define RANKING_DATA 5
  /***********************************************
   *変数宣言
   ***********************************************/
 AppleGame applegame;
-
+Fps fps;
 int g_OldKey;//前回の入力キー
 int g_NowKey;//今回の入力キー
 int g_KeyFlg;//入力キー情報
@@ -25,7 +26,7 @@ int g_WaitTime = 0;//待ち時間
 int g_EndImage;
 int g_Mileage;//走行距離
 int g_EnemyCount1, g_EnemyCount2, g_EnemyCount3;//敵カウント
-int g_Appleimage;//キャラ画像変数
+int g_Appleimage[10];//キャラ画像変数
 int g_Player, g_PlayerRight, g_PlayerLeft;          //キャラ画像変数
 int g_StageImage;
 
@@ -70,6 +71,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		g_OldKey = g_NowKey;
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 		g_KeyFlg = g_NowKey & ~g_OldKey;
+
 		ClearDrawScreen();//画像の初期化
 
 		switch (g_GameState) {
@@ -80,7 +82,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			GameMain();     //ゲームメイン処理
 			break;
 		}
+		fps.Update();	//更新
+		fps.Draw();		//描画
 		ScreenFlip();     //裏画面の内容を表画面に反映
+		fps.Wait();		//待機
 	}
 	DxLib_End();
 
@@ -125,12 +130,6 @@ void GameMain(void) {
 ***********************************************/
 
 int LoadImages() {
-	//敵
-	if ((g_Appleimage = LoadGraph("images/Apple.png")) == -1)return-1;
-	//if ((g_Appleimage[1] = LoadGraph("images/GreenApple1.png")) == -1)return-1;
-	//if ((g_Appleimage[2] = LoadGraph("images/YellowApple1.png")) == -1)return-1;
-	//if ((g_Apple[4] = LoadGraph("images/chapter5/Apple.bmp")) == -1)return-1;
-
 	//ステージ背景
 	if ((g_StageImage = LoadGraph("images/bg_natural_mori.jpg")) == -1) return -1;
 
@@ -141,8 +140,30 @@ int LoadImages() {
 	return 0;
 }
 
-int AppleGame::getg_Appleimage() {
-	return g_Appleimage;
+int AppleGame::getg_Appleimage(int rand) {
+	switch (rand)
+	{
+	case 0:
+		return LoadGraph("images/Apple.png");
+	case 1:
+		return LoadGraph("images/Apple.png");
+	case 2:
+		return LoadGraph("images/Apple.png");
+	case 3:
+		return LoadGraph("images/Apple.png");
+	case 4:
+		return LoadGraph("images/Apple.png");
+	case 5:
+		return LoadGraph("images/Apple.png");
+	case 6:
+		return LoadGraph("images/GreenApple.png");
+	case 7:
+		return LoadGraph("images/GreenApple.png");
+	case 8:
+		return LoadGraph("images/YellowApple.png");
+	case 9:
+		return LoadGraph("images/PoisonApple.png");
+	}
 }
 int AppleGame::getMileage() {
 	return g_Mileage;
