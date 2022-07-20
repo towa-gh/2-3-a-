@@ -33,7 +33,6 @@ int g_Player, g_PlayerRight, g_PlayerLeft;          //キャラ画像変数
 int g_StageImage;
 int g_PosY;            //スクロール時のY座標
 int g_HelpImage;
-//int g_Apple;
 int g_Menu, g_AppleMenu;//メニュー画像変数
 
 /***********************************************
@@ -232,22 +231,24 @@ void DrawEnd(void) {
 	DrawString(150, 20, "Thank you for Playing!!!", 0xffff, 0);
 
 	//クレジット表示
-	if (++g_WaitTime < 650) g_PosY = 300 - g_WaitTime / 2;
-	DrawString(110, 170 + g_PosY, "背景画像　　森のイラスト　いらすとや", 0x000000);
-	DrawString(110, 200 + g_PosY, "リンゴの画像 いらすとや　　", 0x000000);
-	DrawString(110, 230 + g_PosY, "プレイヤー画像　　ピクトグラム", 0x000000);
-	DrawString(110, 260 + g_PosY, "BGM　DOVA-SYNDROME", 0x000000);
-	/*DrawString(110, 290 + g_PosY, "　　　　　国際　太郎", 0x000000);
-	DrawString(110, 310 + g_PosY, "素材利用", 0x000000);
-	DrawString(110, 340 + g_PosY, "BGM　　　　魔王伝説", 0x000000);
-	DrawString(110, 365 + g_PosY, "SE　　　　　煉獄庭園", 0x000000);*/
+	SetFontSize(15);//24
+	if (++g_WaitTime < 710) g_PosY = 250 - g_WaitTime / 2;
+	DrawString(70, 170 + g_PosY, "背景画像　　森のイラスト　いらすとや", 0x000000);
+	DrawString(70, 200 + g_PosY, "リンゴの画像 いらすとや　　", 0x000000);
+	DrawString(70, 230 + g_PosY, "プレイヤー画像　　ピクトグラム", 0x000000);
+	DrawString(70, 260 + g_PosY, "BGM　DOVA-SYNDROME", 0x000000);
+	DrawString(68, 290 + g_PosY, " 当サイトの音源は、本契約の条件に沿う利用である限り、", 0x000000);
+	DrawString(68, 310 + g_PosY, "「用途・営利・非営利」を問わず無料で自由にご利用いただいております。", 0x000000);
+	DrawString(70, 340 + g_PosY, "ご利用の際の著作権・提供等の表示は不要ですが、", 0x000000);
+	DrawString(70, 370 + g_PosY, "音源の権利は当該音源の作曲・制作者が保持しています。", 0x000000);
+	//DrawString(110, 365 + g_PosY, "SE　　　　　煉獄庭園", 0x000000);
 
 
-	//スペースキーでメニューに戻る
-	if (g_KeyFlg & PAD_INPUT_M) g_GameState = 0;
+	//Bボタンでメニューに戻る
+	if (g_KeyFlg & PAD_INPUT_B) g_GameState = 0;
 
 
-	//DrawString(20, 450, "---- スペースキーを押してタイトルへ戻る ----", 0xffffff, 0);
+	DrawString(20, 450, "---- Bを押してタイトルへ戻る ----", 0xffffff, 0);
 
 }
 
@@ -256,24 +257,21 @@ void DrawEnd(void) {
 //****************************************/
 void DrawHelp(void) {
 
-	//スペースキーでメニューに戻る
-	if (g_KeyFlg & PAD_INPUT_M) g_GameState = 0;
+	//Bボタンでメニューに戻る
+	if (g_KeyFlg & PAD_INPUT_B) g_GameState = 0;
 
 	//タイトル画像表示
 	DrawGraph(0, 0, g_HelpImage, FALSE);
 	SetFontSize(20);
-	/*DrawString(280, 120, "操作説明", 0xf, 0);*/
+	
 
 	DrawString(190, 160, "左スティックを倒すと左に移動", 0xf, 0);
 	DrawString(190, 180, "右スティックを倒すと右に移動", 0xf, 0);
-	DrawString(190, 200, "STRATボタンを押すとポーズ画面", 0xf, 0);
-	/*DrawString(190, 220, "なるとゲームオーバーです", 0xf, 0);*/
-	/*DrawString(20, 250, "アイテム一覧", 0xffffff, 0);
-	DrawGraph(20, 260, g_Item[0], TRUE);
-	DrawString(20, 315, "取ると燃料が回復するよ。", 0xffffff, 0);
-	DrawGraph(20, 335, g_Item[1], TRUE);
-	DrawString(20, 385, "ダメージを受けている時に取ると耐久回復", 0xffffff, 0);
-	DrawString(20, 405, "耐久が減っていなかったら燃料が少し回復するよ。", 0xffffff, 0);*/
-	DrawString(20, 450, "---- スペースキーを押してタイトルへ戻る ----", 0xffffff, 0);
+	DrawString(190, 200, "右スティックボタンを押し込むとポーズ画面", 0xf, 0);
+	DrawString(190, 220, "Aボタンを押すと決定", 0xf, 0);
+	DrawString(190, 240, "Bボタンを押すと決定", 0xf, 0);
+
+	
+	DrawString(20, 450, "---- Bを押してタイトルへ戻る ----", 0xffffff, 0);
 
 }
