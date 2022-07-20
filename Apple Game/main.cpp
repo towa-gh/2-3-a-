@@ -146,27 +146,21 @@ void GameInit(void) {
 	SetFontSize(16);
 	DrawString(20, 20, "GAME MEIN", 0xffffff, 0);
 
-	DrawRotaGraph(540, 60, 0.3f, 0, Ringo[0], TRUE, FALSE);
-
-
-	DrawRotaGraph(540, 95, 0.3f, 0, Ringo[1], TRUE, FALSE);
-
-
-	DrawRotaGraph(540, 132, 0.3f, 0, Ringo[2], TRUE, FALSE);
-
-
-	DrawRotaGraph(540, 172, 0.3f, 0, Ringo[3], TRUE, FALSE);
+	DrawRotaGraph(540, 60, 0.3f, 0, Ringo[0], TRUE, FALSE);  //赤リンゴの描画
+	DrawRotaGraph(540, 95, 0.3f, 0, Ringo[1], TRUE, FALSE);  //緑リンゴの描画
+	DrawRotaGraph(540, 132, 0.3f, 0, Ringo[2], TRUE, FALSE);  //黄リンゴの描画
+	DrawRotaGraph(540, 172, 0.3f, 0, Ringo[3], TRUE, FALSE);  //毒リンゴの描画
 
 
 	SetFontSize(20);
 	DrawString(515, 202, "SCORE：", 0xffffff, 0);
-	DrawFormatString(590, 202, 0xFFFFFF, "%04d", Score);
+	DrawFormatString(590, 202, 0xFFFFFF, "%04d", Score); //総合スコア
 
 
-	DrawFormatString(575, 50, 0xFFFFFF, "%04d", RingoScore[0]);
-	DrawFormatString(575, 85, 0xFFFFFF, "%04d", RingoScore[1]);
-	DrawFormatString(575, 122, 0xFFFFFF, "%04d", RingoScore[2]);
-	DrawFormatString(575, 162, 0xFFFFFF, "%04d", RingoScore[3]);
+	DrawFormatString(575, 50, 0xFFFFFF, "%04d", RingoScore[0]); //赤リンゴのスコア
+	DrawFormatString(575, 85, 0xFFFFFF, "%04d", RingoScore[1]); //緑リンゴのスコア
+	DrawFormatString(575, 122, 0xFFFFFF, "%04d", RingoScore[2]); //黄リンゴのスコア
+	DrawFormatString(575, 162, 0xFFFFFF, "%04d", RingoScore[3]); //毒リンゴのスコア
 }
 /***********************************************
  *ゲームメイン
@@ -184,6 +178,7 @@ void GameMain(void) {
 		Time = TIMELIMIT * 2 - (GetNowCount() - g_StartTime);
 
 		if (Time <= 0) {
+
 			//g_GameState = GAME_OVER;
 			Time = 0;
 		}
@@ -202,16 +197,13 @@ void GameMain(void) {
 	DrawString(20, 20, "GAME MEIN", 0xffffff, 0);
 
 	DrawRotaGraph(540, 60, 0.3f, 0, Ringo[0], TRUE, FALSE);  //赤リンゴの描画
-
-	DrawRotaGraph(540, 95, 0.3f, 0, Ringo[1], TRUE, FALSE);  //緑リンゴの描画
-	
+	DrawRotaGraph(540, 95, 0.3f, 0, Ringo[1], TRUE, FALSE);  //緑リンゴの描画	
 	DrawRotaGraph(540, 132, 0.3f, 0, Ringo[2], TRUE, FALSE);  //黄リンゴの描画
-
 	DrawRotaGraph(540, 172, 0.3f, 0, Ringo[3], TRUE, FALSE);  //毒リンゴの描画
 
 	SetFontSize(20);
 	DrawString(515, 202, "SCORE：", 0xffffff, 0);
-	DrawFormatString(590, 202, 0xFFFFFF, "%04d", Score);
+	DrawFormatString(590, 202, 0xFFFFFF, "%04d", Score); //総合スコア
 
 
 	DrawFormatString(575, 50, 0xFFFFFF, "%04d", RingoScore[0]); //赤リンゴのスコア
@@ -242,24 +234,21 @@ void Pause() {
 	SetFontSize(16);
 	DrawString(20, 20, "GAME MEIN", 0xffffff, 0);
 
-	DrawRotaGraph(540, 60, 0.3f, 0, Ringo[0], TRUE, FALSE);
-
-	DrawRotaGraph(540, 95, 0.3f, 0, Ringo[1], TRUE, FALSE);
-
-	DrawRotaGraph(540, 132, 0.3f, 0, Ringo[2], TRUE, FALSE);
-
-	DrawRotaGraph(540, 172, 0.3f, 0, Ringo[3], TRUE, FALSE);
+	DrawRotaGraph(540, 60, 0.3f, 0, Ringo[0], TRUE, FALSE);  //赤リンゴの描画
+	DrawRotaGraph(540, 95, 0.3f, 0, Ringo[1], TRUE, FALSE);  //緑リンゴの描画
+	DrawRotaGraph(540, 132, 0.3f, 0, Ringo[2], TRUE, FALSE);  //黄リンゴの描画
+	DrawRotaGraph(540, 172, 0.3f, 0, Ringo[3], TRUE, FALSE);  //毒リンゴの描画
 
 
 	SetFontSize(20);
 	DrawString(515, 202, "SCORE：", 0xffffff, 0);
-	DrawFormatString(590, 202, 0xFFFFFF, "%04d", Score);
+	DrawFormatString(590, 202, 0xFFFFFF, "%04d", Score); //総合スコア
 
 
-	DrawFormatString(575, 50, 0xFFFFFF, "%04d", RingoScore[0]);
-	DrawFormatString(575, 85, 0xFFFFFF, "%04d", RingoScore[1]);
-	DrawFormatString(575, 122, 0xFFFFFF, "%04d", RingoScore[2]);
-	DrawFormatString(575, 162, 0xFFFFFF, "%04d", RingoScore[3]);
+	DrawFormatString(575, 50, 0xFFFFFF, "%04d", RingoScore[0]); //赤リンゴのスコア
+	DrawFormatString(575, 85, 0xFFFFFF, "%04d", RingoScore[1]); //緑リンゴのスコア
+	DrawFormatString(575, 122, 0xFFFFFF, "%04d", RingoScore[2]); //黄リンゴのスコア
+	DrawFormatString(575, 162, 0xFFFFFF, "%04d", RingoScore[3]); //毒リンゴのスコア
 
 }
 
@@ -285,7 +274,7 @@ int LoadImages() {
 
 	//プレイヤー
 	if ((g_PlayerRight = LoadGraph("images/Right.png")) == -1)return -1;
-	if ((g_PlayerLeft = LoadGraph("images/Left.bmp")) == -1)return -1;
+	if ((g_PlayerLeft = LoadGraph("images/Left.png")) == -1)return -1;
 
 	return 0;
 }
