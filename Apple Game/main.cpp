@@ -229,23 +229,22 @@ void DrawEnd(void) {
 
 	//クレジット表示
 	SetFontSize(15);//24
-	if (++g_WaitTime < 710) g_PosY = 200 - g_WaitTime / 2;
+	if (++g_WaitTime < 710) g_PosY = 245 - g_WaitTime / 2;
 	DrawString(70, 170 + g_PosY, "背景画像　　森のイラスト　いらすとや", 0x000000);
 	DrawString(70, 200 + g_PosY, "リンゴの画像 いらすとや　　", 0x000000);
 	DrawString(70, 230 + g_PosY, "プレイヤー画像　　ピクトグラム", 0x000000);
 	DrawString(70, 260 + g_PosY, "BGM　DOVA-SYNDROME", 0x000000);
-	DrawString(68, 290 + g_PosY, " 当サイトの音源は、本契約の条件に沿う利用である限り、", 0x000000);
-	DrawString(68, 310 + g_PosY, "「用途・営利・非営利」を問わず無料で自由にご利用いただいております。", 0x000000);
-	DrawString(70, 340 + g_PosY, "ご利用の際の著作権・提供等の表示は不要ですが、", 0x000000);
-	DrawString(70, 370 + g_PosY, "音源の権利は当該音源の作曲・制作者が保持しています。", 0x000000);
-	//DrawString(110, 365 + g_PosY, "SE　　　　　煉獄庭園", 0x000000);
-
-
+	DrawString(70, 280 + g_PosY, "SE　DOVA-SYNDROME", 0x000000);
+	DrawString(68, 310 + g_PosY, " 当サイトの音源は、本契約の条件に沿う利用である限り、", 0x000000);
+	DrawString(68, 340 + g_PosY, "「用途・営利・非営利」を問わず無料で自由にご利用いただいております。", 0x000000);
+	DrawString(70, 370 + g_PosY, "ご利用の際の著作権・提供等の表示は不要ですが、", 0x000000);
+	DrawString(70, 400 + g_PosY, "音源の権利は当該音源の作曲・制作者が保持しています。", 0x000000);
+	
 	//Bボタンでメニューに戻る
 	if (g_KeyFlg & PAD_INPUT_B) g_GameState = 0;
 
 
-	DrawString(20, 450, "---- Bを押してタイトルへ戻る ----", 0xffffff, 0);
+	DrawString(20, 450, "---- Bボタンを押してタイトルへ戻る ----", 0xffffff, 0);
 
 }
 
@@ -269,6 +268,6 @@ void DrawHelp(void) {
 	DrawString(190, 240, "Bボタンを押すと決定", 0xfff, 0);
 
 	
-	DrawString(20, 450, "---- Bを押してタイトルへ戻る ----", 0xffffff, 0);
+	DrawString(20, 450, "---- Bボタンを押してタイトルへ戻る ----", 0xffffff, 0);
 
 }
